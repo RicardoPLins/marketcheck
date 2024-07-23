@@ -1,0 +1,67 @@
+<%= form_with(model: produto) do |form| %>
+  <% if produto.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(produto.errors.count, "error") %> prohibited this produto from being saved:</h2>
+
+      <ul>
+        <% produto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :descricao, style: "display: block" %>
+    <%= form.text_area :descricao %>
+  </div>
+
+  <div>
+    <%= form.label :categoria, style: "display: block" %>
+    <%= form.text_field :categoria %>
+  </div>
+
+  <div>
+    <%= form.label :marca, style: "display: block" %>
+    <%= form.text_field :marca %>
+  </div>
+
+  <div>
+    <%= form.label :preco, style: "display: block" %>
+    <%= form.text_field :preco %>
+  </div>
+
+  <div>
+    <%= form.label :unidade_de_medida, style: "display: block" %>
+    <%= form.text_field :unidade_de_medida %>
+  </div>
+
+  <div>
+    <%= form.label :disponibilidade, style: "display: block" %>
+    <%= form.check_box :disponibilidade %>
+  </div>
+
+  <div>
+    <%= form.label :avaliacoes, style: "display: block" %>
+    <%= form.number_field :avaliacoes %>
+  </div>
+
+  <div>
+    <%= form.label :imagem, style: "display: block" %>
+    <%= form.text_field :imagem %>
+  </div>
+
+  <div>
+    <%= form.label :link, style: "display: block" %>
+    <%= form.text_field :link %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
