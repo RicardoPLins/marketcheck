@@ -2,24 +2,24 @@
 
 one:
   nome: MyString
-  descricao: MyText
+  descricao: MyString
   categoria: MyString
   marca: MyString
   preco: 9.99
   unidade_de_medida: MyString
   disponibilidade: false
-  avaliacoes: 1
+  avaliacoes: 1.5
   imagem: MyString
   link: MyString
 
 two:
   nome: MyString
-  descricao: MyText
+  descricao: MyString
   categoria: MyString
   marca: MyString
   preco: 9.99
   unidade_de_medida: MyString
   disponibilidade: false
-  avaliacoes: 1
+  avaliacoes: 1.5
   imagem: MyString
   link: MyString
