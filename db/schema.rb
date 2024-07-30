@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_23_191705) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_145427) do
   create_table "produtos", force: :cascade do |t|
     t.string "nome"
-    t.text "descricao"
+    t.string "descricao"
     t.string "categoria"
     t.string "marca"
     t.decimal "preco"
     t.string "unidade_de_medida"
     t.boolean "disponibilidade"
-    t.integer "avaliacoes"
+    t.float "avaliacoes"
     t.string "imagem"
-    t.string "link"
+    t.string "nome_mercado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

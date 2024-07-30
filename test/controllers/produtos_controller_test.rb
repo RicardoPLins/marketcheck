@@ -17,7 +17,7 @@ class ProdutosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create produto" do
     assert_difference("Produto.count") do
-      post produtos_url, params: { produto: { avaliacoes: @produto.avaliacoes, categoria: @produto.categoria, descricao: @produto.descricao, disponibilidade: @produto.disponibilidade, imagem: @produto.imagem, link: @produto.link, marca: @produto.marca, nome: @produto.nome, preco: @produto.preco, unidade_de_medida: @produto.unidade_de_medida } }
+      post produtos_url, params: { produto: { avaliacoes: @produto.avaliacoes, categoria: @produto.categoria, descricao: @produto.descricao, disponibilidade: @produto.disponibilidade, imagem: @produto.imagem, marca: @produto.marca, nome: @produto.nome, nome_mercado: @produto.nome_mercado, preco: @produto.preco, unidade_de_medida: @produto.unidade_de_medida } }
     end
 
     assert_redirected_to produto_url(Produto.last)
@@ -34,7 +34,7 @@ class ProdutosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update produto" do
-    patch produto_url(@produto), params: { produto: { avaliacoes: @produto.avaliacoes, categoria: @produto.categoria, descricao: @produto.descricao, disponibilidade: @produto.disponibilidade, imagem: @produto.imagem, link: @produto.link, marca: @produto.marca, nome: @produto.nome, preco: @produto.preco, unidade_de_medida: @produto.unidade_de_medida } }
+    patch produto_url(@produto), params: { produto: { avaliacoes: @produto.avaliacoes, categoria: @produto.categoria, descricao: @produto.descricao, disponibilidade: @produto.disponibilidade, imagem: @produto.imagem, marca: @produto.marca, nome: @produto.nome, nome_mercado: @produto.nome_mercado, preco: @produto.preco, unidade_de_medida: @produto.unidade_de_medida } }
     assert_redirected_to produto_url(@produto)
   end
 

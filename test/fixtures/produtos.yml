@@ -10,7 +10,7 @@ one:
   disponibilidade: false
   avaliacoes: 1.5
   imagem: MyString
-  link: MyString
+  nome_mercado: MyString
 
 two:
   nome: MyString
@@ -22,4 +22,4 @@ two:
   disponibilidade: false
   avaliacoes: 1.5
   imagem: MyString
-  link: MyString
+  nome_mercado: MyString

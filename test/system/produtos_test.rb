@@ -19,9 +19,9 @@ class ProdutosTest < ApplicationSystemTestCase
     fill_in "Descricao", with: @produto.descricao
     check "Disponibilidade" if @produto.disponibilidade
     fill_in "Imagem", with: @produto.imagem
-    fill_in "Link", with: @produto.link
     fill_in "Marca", with: @produto.marca
     fill_in "Nome", with: @produto.nome
+    fill_in "Nome mercado", with: @produto.nome_mercado
     fill_in "Preco", with: @produto.preco
     fill_in "Unidade de medida", with: @produto.unidade_de_medida
     click_on "Create Produto"
@@ -39,9 +39,9 @@ class ProdutosTest < ApplicationSystemTestCase
     fill_in "Descricao", with: @produto.descricao
     check "Disponibilidade" if @produto.disponibilidade
     fill_in "Imagem", with: @produto.imagem
-    fill_in "Link", with: @produto.link
     fill_in "Marca", with: @produto.marca
     fill_in "Nome", with: @produto.nome
+    fill_in "Nome mercado", with: @produto.nome_mercado
     fill_in "Preco", with: @produto.preco
     fill_in "Unidade de medida", with: @produto.unidade_de_medida
     click_on "Update Produto"
