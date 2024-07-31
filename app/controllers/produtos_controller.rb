@@ -3,8 +3,13 @@ class ProdutosController < ApplicationController
 
   # GET /produtos or /produtos.json
   def index
-    @produtos = Produto.all
+    if params[:search]
+      @produtos = Produto.where('nome LIKE ?', "%#{params[:search]}%")
+    else
+      @produtos = Produto.all
+    end
   end
+
 
   # GET /produtos/1 or /produtos/1.json
   def show
