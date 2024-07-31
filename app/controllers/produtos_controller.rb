@@ -3,10 +3,14 @@ class ProdutosController < ApplicationController
 
   # GET /produtos or /produtos.json
   def index
-    if params[:search]
-      @produtos = Produto.where('nome LIKE ?', "%#{params[:search]}%")
-    else
-      @produtos = Produto.all
+    @produtos = Produto.all
+
+    if params[:search].present?
+      @produtos = @produtos.where('nome LIKE ?', "%#{params[:search]}%")
+    end
+
+    if params[:order] == 'preco_crescente'
+      @produtos = @produtos.order(preco: :asc)
     end
   end
 
