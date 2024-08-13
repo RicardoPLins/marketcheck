@@ -40,8 +40,14 @@
   </p>
 
   <p>
+    <%# <%= produto.imagem %>
+    <%# <%= image_tag produto.url_image, size:"50x50" %>
     <strong>Imagem:</strong>
-    <%= produto.imagem %>
+    <% if produto.imagem.present? %>
+      <%= image_tag produto.imagem, size: "100x100" %>
+    <% else %>
+      <p>Imagem não disponível</p>
+    <% end %>
   </p>
 
   <p>
