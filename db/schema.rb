@@ -13,10 +13,7 @@
 ActiveRecord::Schema[7.1].define(version: 2024_08_09_010916) do
   create_table "produtos", force: :cascade do |t|
     t.string "nome"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "descricao"
+    t.string "descricao"
     t.string "categoria"
     t.string "marca"
     t.string "unidade_de_medida"
@@ -25,6 +22,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_09_010916) do
     t.string "imagem"
     t.decimal "preco"
     t.string "nome_mercado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
