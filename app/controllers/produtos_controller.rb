@@ -1,5 +1,5 @@
 class ProdutosController < ApplicationController
-  before_action :set_produto, only: %i[ show edit update destroy ]
+  before_action :set_produto, only: %i[show edit update destroy]
 
   # GET /produtos or /produtos.json
   def index
@@ -14,10 +14,8 @@ class ProdutosController < ApplicationController
     end
   end
 
-
   # GET /produtos/1 or /produtos/1.json
-  def show
-  end
+  def show; end
 
   # GET /produtos/new
   def new
@@ -25,8 +23,7 @@ class ProdutosController < ApplicationController
   end
 
   # GET /produtos/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /produtos or /produtos.json
   def create
@@ -66,14 +63,30 @@ class ProdutosController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_produto
-      @produto = Produto.find(params[:id])
-    end
+  # GET /produtos/produtos_menor
+def produtos_menor
+  # Obtenha os produtos com o menor preço por nome usando uma subconsulta
+  subquery = Produto.select('nome, MIN(preco) AS min_preco')
+                    .group('nome')
+          
 
-    # Only allow a list of trusted parameters through.
-    def produto_params
-      params.require(:produto).permit(:nome, :descricao, :categoria, :marca, :preco, :unidade_de_medida, :disponibilidade, :avaliacoes, :imagem, :nome_mercado)
-    end
+  @produtos_menor = Produto.joins("INNER JOIN (#{subquery.to_sql}) AS sub ON produtos.nome = sub.nome AND produtos.preco = sub.min_preco")
+  
+
+  respond_to do |format|
+    format.json { render json: @produtos_menor }
+  end
+end
+
+
+
+  private
+
+  def set_produto
+    @produto = Produto.find(params[:id])
+  end
+
+  def produto_params
+    params.require(:produto).permit(:nome, :descricao, :categoria, :marca, :preco, :unidade_de_medida, :disponibilidade, :avaliacoes, :imagem, :nome_mercado)
+  end
 end
