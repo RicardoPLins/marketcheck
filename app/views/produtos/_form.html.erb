@@ -60,6 +60,10 @@
     <%= form.label :nome_mercado, style: "display: block" %>
     <%= form.text_field :nome_mercado %>
   </div>
+  <div class="field">
+  <%= form.label :supermercado_id %>
+  <%= form.collection_select :supermercado_id, Supermercado.all, :id, :nome %>
+  </div>
 
   <div>
     <%= form.submit %>

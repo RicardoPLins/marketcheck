@@ -1,0 +1,36 @@
+<p style="color: green"><%= notice %></p>
+
+<div id="<%= dom_id @supermercado %>">
+  <p>
+    <strong>Nome:</strong>
+    <%= @supermercado.nome %>
+  </p>
+
+  <p>
+    <strong>Endereço:</strong>
+    <%= link_to @supermercado.endereco, @supermercado.endereco, target: "_blank" %>
+  </p>
+
+  <p>
+    <strong>Horário de funcionamento:</strong>
+    <%= @supermercado.horario_de_funcionamento %>
+  </p>
+
+  <h3>Mapa</h3>
+  <iframe
+    width="600"
+    height="450"
+    style="border:0"
+    loading="lazy"
+    allowfullscreen
+    referrerpolicy="no-referrer-when-downgrade"
+    src="<%= @supermercado.endereco %>">
+  </iframe>
+</div>
+
+<div>
+  <%= link_to "Edit this supermercado", edit_supermercado_path(@supermercado) %> |
+  <%= link_to "Back to supermercados", supermercados_path %>
+
+  <%= button_to "Destroy this supermercado", @supermercado, method: :delete %>
+</div>

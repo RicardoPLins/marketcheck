@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :supermercados
   resources :produtos do
     collection do
       get 'produtos_menor' # Rota para o novo endpoint

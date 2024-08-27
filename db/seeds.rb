@@ -1,3 +1,8 @@
+puts "cadastrando os supermercados"
+# Cadastrando os supermercados
+bemais = Supermercado.create(nome: 'BemMais', endereco: 'https://maps.app.goo.gl/2TGoAAz2zbjA4D1aA', horario_de_funcionamento: '7:00 - 21:00')
+carrefour = Supermercado.create(nome: 'Carrefour', endereco: 'https://maps.app.goo.gl/ndUsJmw2iXj2w5Fr8', horario_de_funcionamento: '8:00 - 22:00')
+aquarius = Supermercado.create(nome: 'Aquarius', endereco: 'https://maps.app.goo.gl/xWETjjDC9qAKHpvT6', horario_de_funcionamento: '8:00 - 19:00')
 puts "Cadastrando produtos"
 
 produtos = [
@@ -14,37 +19,37 @@ produtos = [
 
 # Produtos com preços modificados para cada mercado
 produtos_mercados = [
-  { nome: 'Arroz Integral', preco: 6.00, nome_mercado: 'BemMais' },
-  { nome: 'Arroz Integral', preco: 7.50, nome_mercado: 'Carrefour' },
-  { nome: 'Arroz Integral', preco: 6.75, nome_mercado: 'Aquarius' },
-  { nome: 'Feijão Preto', preco: 5.00, nome_mercado: 'BemMais' },
-  { nome: 'Feijão Preto', preco: 4.50, nome_mercado: 'Carrefour' },
-  { nome: 'Feijão Preto', preco: 5.50, nome_mercado: 'Aquarius' },
-  { nome: 'Macarrão Espaguete', preco: 3.00, nome_mercado: 'BemMais' },
-  { nome: 'Macarrão Espaguete', preco: 3.50, nome_mercado: 'Carrefour' },
-  { nome: 'Macarrão Espaguete', preco: 2.75, nome_mercado: 'Aquarius' },
-  { nome: 'Açúcar Cristal', preco: 2.30, nome_mercado: 'BemMais' },
-  { nome: 'Açúcar Cristal', preco: 2.70, nome_mercado: 'Carrefour' },
-  { nome: 'Açúcar Cristal', preco: 2.50, nome_mercado: 'Aquarius' },
-  { nome: 'Sal Refinado', preco: 0.90, nome_mercado: 'BemMais' },
-  { nome: 'Sal Refinado', preco: 1.10, nome_mercado: 'Carrefour' },
-  { nome: 'Sal Refinado', preco: 1.00, nome_mercado: 'Aquarius' },
-  { nome: 'Café Torrado e Moído', preco: 8.50, nome_mercado: 'BemMais' },
-  { nome: 'Café Torrado e Moído', preco: 9.00, nome_mercado: 'Carrefour' },
-  { nome: 'Café Torrado e Moído', preco: 9.50, nome_mercado: 'Aquarius' },
-  { nome: 'Óleo de Soja', preco: 7.50, nome_mercado: 'BemMais' },
-  { nome: 'Óleo de Soja', preco: 7.35, nome_mercado: 'Carrefour' },
-  { nome: 'Óleo de Soja', preco: 7.00, nome_mercado: 'Aquarius' },
-  { nome: 'Leite Integral', preco: 4.00, nome_mercado: 'BemMais' },
-  { nome: 'Leite Integral', preco: 4.50, nome_mercado: 'Carrefour' },
-  { nome: 'Leite Integral', preco: 4.15, nome_mercado: 'Aquarius' },
-  { nome: 'Farinha de Trigo', preco: 3.75, nome_mercado: 'BemMais' },
-  { nome: 'Farinha de Trigo', preco: 3.50, nome_mercado: 'Carrefour' },
-  { nome: 'Farinha de Trigo', preco: 4.00, nome_mercado: 'Aquarius' }
+  { nome: 'Arroz Integral', preco: 6.00, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Arroz Integral', preco: 7.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Arroz Integral', preco: 6.75, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
+  { nome: 'Feijão Preto', preco: 5.00, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Feijão Preto', preco: 4.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Feijão Preto', preco: 5.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
+  { nome: 'Macarrão Espaguete', preco: 3.00, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Macarrão Espaguete', preco: 3.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Macarrão Espaguete', preco: 2.75, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
+  { nome: 'Açúcar Cristal', preco: 2.30, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Açúcar Cristal', preco: 2.70, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Açúcar Cristal', preco: 2.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
+  { nome: 'Sal Refinado', preco: 0.90, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Sal Refinado', preco: 1.10, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Sal Refinado', preco: 1.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
+  { nome: 'Café Torrado e Moído', preco: 8.50, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Café Torrado e Moído', preco: 9.00, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Café Torrado e Moído', preco: 9.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
+  { nome: 'Óleo de Soja', preco: 7.50, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Óleo de Soja', preco: 7.35, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Óleo de Soja', preco: 7.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
+  { nome: 'Leite Integral', preco: 4.00, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Leite Integral', preco: 4.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Leite Integral', preco: 4.15, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
+  { nome: 'Farinha de Trigo', preco: 3.75, nome_mercado: 'BemMais', supermercado_id: bemais.id },
+  { nome: 'Farinha de Trigo', preco: 3.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
+  { nome: 'Farinha de Trigo', preco: 4.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id }
 ]
 
-# Cadastrando produtos com preços modificados
+# Cadastrando produtos com preços modificados e associando ao supermercado
 produtos_mercados.each do |produto_mercado|
   produto_base = produtos.find { |p| p[:nome] == produto_mercado[:nome] }
-  Produto.create(produto_base.merge(preco: produto_mercado[:preco], nome_mercado: produto_mercado[:nome_mercado]))
+  Produto.create(produto_base.merge(preco: produto_mercado[:preco], nome_mercado: produto_mercado[:nome_mercado], supermercado_id: produto_mercado[:supermercado_id]))
 end

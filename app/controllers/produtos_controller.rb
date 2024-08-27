@@ -71,7 +71,7 @@ def produtos_menor
           
 
   @produtos_menor = Produto.joins("INNER JOIN (#{subquery.to_sql}) AS sub ON produtos.nome = sub.nome AND produtos.preco = sub.min_preco")
-  
+
 
   respond_to do |format|
     format.json { render json: @produtos_menor }
@@ -87,6 +87,6 @@ end
   end
 
   def produto_params
-    params.require(:produto).permit(:nome, :descricao, :categoria, :marca, :preco, :unidade_de_medida, :disponibilidade, :avaliacoes, :imagem, :nome_mercado)
+  params.require(:produto).permit(:nome, :descricao, :categoria, :marca, :preco, :unidade_de_medida, :disponibilidade, :avaliacoes, :imagem, :nome_mercado, :supermercado_id)
   end
 end
