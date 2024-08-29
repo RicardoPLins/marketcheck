@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_30_145427) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_27_133756) do
   create_table "produtos", force: :cascade do |t|
     t.string "nome"
     t.string "descricao"
@@ -24,6 +24,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_145427) do
     t.string "nome_mercado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "supermercado_id", null: false
+    t.index ["supermercado_id"], name: "index_produtos_on_supermercado_id"
   end
 
+  create_table "supermercados", force: :cascade do |t|
+    t.string "nome"
+    t.string "endereco"
+    t.string "horario_de_funcionamento"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "produtos", "supermercados"
 end
