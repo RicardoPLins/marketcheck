@@ -1,0 +1,9 @@
+<h1>Meus Favoritos</h1>
+<%= link_to "Produtos", produtos_path %>
+<% @favoritos.each do |produto| %>
+  <div>
+    <%= render produto %>
+    <!-- Outras informações do produto -->
+    <%= button_to 'Remover dos Favoritos', remove_from_favoritos_favorito_path(produto.id), method: :delete %>
+  </div>
+<% end %>

@@ -6,6 +6,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">Home</a>
+        <%= link_to "Favoritos", favoritos_path %>
       </li>
     </ul>
     <%= form_with(url: produtos_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0') do %>

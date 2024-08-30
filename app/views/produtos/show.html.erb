@@ -5,6 +5,8 @@
 <div>
   <%= link_to "Edit this produto", edit_produto_path(@produto) %> |
   <%= link_to "Back to produtos", produtos_path %>
-
+  <%= link_to "Favoritos", favoritos_path %>
+  <%= button_to "Adicionar aos Favoritos", add_to_favoritos_favorito_path(@produto.id), method: :post %>
+  
   <%= button_to "Destroy this produto", @produto, method: :delete %>
 </div>
