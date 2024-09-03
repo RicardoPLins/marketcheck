@@ -23,8 +23,6 @@ class FavoritosController < ApplicationController
     # Carrega os produtos correspondentes
     @favoritos = Produto.where(id: favoritos)
 
-    # Para depuração, você pode adicionar um log
-    Rails.logger.debug "Lista de favoritos: #{@favoritos.inspect}"
     # Quando o front tiver pronto
     # render json: @favoritos
   end
@@ -45,5 +43,25 @@ class FavoritosController < ApplicationController
   
     redirect_to favoritos_path
   end
+  def share
+    favoritos = Rails.cache.read('favoritos') || []
+    if favoritos.present?
+      token = SecureRandom.hex(10)
+      Rails.cache.write("favoritos_#{token}", favoritos, expires_in: 24.hours)
   
+      # Redirecionar para a view que mostrará o link compartilhado
+      redirect_to shared_favoritos_path(token: token), notice: "Lista de favoritos compartilhada com sucesso!"
+    else
+      redirect_to favoritos_path, alert: "Lista de favoritos está vazia."
+    end
+  end
+  
+  def show_shared
+    @token = params[:token]
+    @favoritos = Rails.cache.read("favoritos_#{@token}") || []
+  
+    if @favoritos.empty?
+      redirect_to favoritos_path, alert: "Lista de favoritos não encontrada ou está vazia."
+    end
+  end  
 end
