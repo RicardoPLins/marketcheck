@@ -73,3 +73,5 @@ end
 
 gem 'redis'
 gem 'redis-rails'
+# Gem do rabbitmq
+gem 'bunny'

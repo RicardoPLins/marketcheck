@@ -16,6 +16,10 @@ class FavoritosController < ApplicationController
       flash[:alert] = 'Produto já está na lista de favoritos.'
     end
 
+    # Transmitir a mensagem para o canal usando ActionCable
+    ActionCable.server.broadcast('favoritos_channel', { message: "A lista de favoritos foi atualizada. Um produto foi adicionado" })
+
+
     redirect_to favoritos_path
   end
 
@@ -44,6 +48,8 @@ class FavoritosController < ApplicationController
     else
       flash[:alert] = 'Produto não encontrado na lista de favoritos.'
     end
+    # Transmitir a mensagem para o canal usando ActionCable
+    ActionCable.server.broadcast('favoritos_channel', { message: "A lista de favoritos foi atualizada. Um produto foi removido" })
 
     redirect_to favoritos_path
   end
@@ -71,4 +77,17 @@ class FavoritosController < ApplicationController
       redirect_to favoritos_path, alert: "Lista de favoritos não encontrada ou está vazia."
     end
   end  
+  private
+
+  def send_notification(message)
+    connection = Bunny.new
+    connection.start
+
+    channel = connection.create_channel
+    queue = channel.queue('favorites_notifications')
+
+    channel.default_exchange.publish(message, routing_key: queue.name)
+    connection.close
+  end
+
 end
