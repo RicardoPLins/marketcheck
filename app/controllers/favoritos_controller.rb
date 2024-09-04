@@ -19,6 +19,8 @@ class FavoritosController < ApplicationController
     # Transmitir a mensagem para o canal usando ActionCable
     ActionCable.server.broadcast('favoritos_channel', { message: "A lista de favoritos foi atualizada. Um produto foi adicionado" })
 
+    # Publicar mensagem no RabbitMQ
+    RabbitMQService.publish('favoritos_queue', 'Um novo produto foi adicionado na lista de favoritos.')
 
     redirect_to favoritos_path
   end
@@ -50,6 +52,10 @@ class FavoritosController < ApplicationController
     end
     # Transmitir a mensagem para o canal usando ActionCable
     ActionCable.server.broadcast('favoritos_channel', { message: "A lista de favoritos foi atualizada. Um produto foi removido" })
+
+    
+    # Publicar mensagem no RabbitMQ
+    RabbitMQService.publish('favoritos_queue', 'Um produto foi removido da lista de favoritos.')
 
     redirect_to favoritos_path
   end
