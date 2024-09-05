@@ -3,7 +3,7 @@ class FavoritosConsumer
     connection = Bunny.new
     connection.start
     channel = connection.create_channel
-    queue = channel.queue('favoritos_queue')
+    queue = channel.queue('favoritos_queue1')
 
     begin
       puts ' [*] Waiting for messages in favoritos_queue. To exit press CTRL+C'

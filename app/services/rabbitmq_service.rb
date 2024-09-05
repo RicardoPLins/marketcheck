@@ -1,4 +1,4 @@
-class RabbitMQService
+class RabbitmqService
   def self.publish(queue_name, message)
     connection = Bunny.new
     connection.start
