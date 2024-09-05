@@ -2,6 +2,22 @@
 
 <%= render @produto %>
 
+<h3>Outros produtos com o mesmo nome:</h3>
+
+<% if @outros_produtos.any? %>
+  <ul>
+    <% @outros_produtos.each do |produto| %>
+      <li>
+        <%= link_to produto.nome, produto_path(produto) %> 
+        - <%= number_to_currency(produto.preco) %> 
+        (<%= produto.supermercado.nome if produto.supermercado.present? %>)
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhum outro produto com o mesmo nome foi encontrado.</p>
+<% end %>
+
 <div>
   <%= link_to "Edit this produto", edit_produto_path(@produto) %> |
   <%= link_to "Back to produtos", produtos_path %>

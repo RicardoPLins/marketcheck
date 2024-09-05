@@ -15,7 +15,9 @@ class ProdutosController < ApplicationController
   end
 
   # GET /produtos/1 or /produtos/1.json
-  def show; end
+  def show
+    @outros_produtos = Produto.where(nome: @produto.nome).where.not(id: @produto.id)
+  end
 
   # GET /produtos/new
   def new
@@ -74,6 +76,7 @@ def produtos_menor
 
 
   respond_to do |format|
+    format.html
     format.json { render json: @produtos_menor }
   end
 end
