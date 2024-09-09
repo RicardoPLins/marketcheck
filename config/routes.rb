@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
   resources :supermercados
+  
   resources :produtos do
+    post 'add_favoritos', on: :member, as: 'add_favoritos' # Rota para adicionar aos favoritos
     collection do
-      get 'produtos_menor' # Rota para o novo endpoint
+      get 'produtos_menor' # Rota para buscar o produto mais barato
     end
   end
 
-  # Define sua aplicação de acordo com o DSL em https://guides.rubyonrails.org/routing.html
+  resources :favoritos, only: [:index] do
+    post 'add', on: :member, as: 'add_to_favoritos' # Rota para adicionar à lista de favoritos
+    delete 'remove', on: :member, as: 'remove_from_favoritos' # Rota para remover da lista de favoritos
+    post 'share', on: :collection, as: 'share'
+    get 'shared/:token', on: :collection, to: 'favoritos#show_shared', as: 'shared'
+  end
+  
 
-  # Revela status de saúde em /up que retorna 200 se o aplicativo inicializa sem exceções, caso contrário 500.
+  # Rota para verificar o status de saúde do aplicativo
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Define a rota do caminho raiz ("/")

@@ -1,0 +1,14 @@
+<h1>Meus Favoritos</h1>
+<%= link_to "Produtos", produtos_path %>
+<% @favoritos.each do |produto| %>
+  <div>
+    <%= render produto %>
+    <!-- Outras informações do produto -->
+    <%= button_to 'Remover dos Favoritos', remove_from_favoritos_favorito_path(produto.id), method: :delete %>
+  </div>
+<% end %>
+<%= link_to "Compartilhar lista de favoritos", share_favoritos_path, method: :post, class: "btn btn-primary", data: { confirm: "Você tem certeza que deseja compartilhar a lista?" } %>
+
+<% if @share_link.present? %>
+  <p>Link para compartilhar: <%= link_to @share_link, @share_link, target: "_blank" %></p>
+<% end %>
