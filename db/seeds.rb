@@ -18,38 +18,60 @@ produtos = [
 ]
 
 # Produtos com preços modificados para cada mercado
+localizacoes = [
+  "Corredor 1, lado direito, prateleira superior",
+  "Corredor 2, lado esquerdo, prateleira inferior",
+  "Corredor 3, meio, prateleira do meio",
+  "Corredor 4, lado direito, prateleira inferior",
+  "Corredor 5, lado esquerdo, canto superior",
+  "Corredor 6, meio, canto inferior",
+  "Corredor 7, lado direito, prateleira do meio",
+  "Corredor 8, lado esquerdo, prateleira superior",
+  "Corredor 9, lado direito, prateleira inferior"
+]
+
 produtos_mercados = [
-  { nome: 'Arroz Integral', preco: 6.00, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Arroz Integral', preco: 7.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Arroz Integral', preco: 6.75, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
-  { nome: 'Feijão Preto', preco: 5.00, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Feijão Preto', preco: 4.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Feijão Preto', preco: 5.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
-  { nome: 'Macarrão Espaguete', preco: 3.00, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Macarrão Espaguete', preco: 3.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Macarrão Espaguete', preco: 2.75, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
-  { nome: 'Açúcar Cristal', preco: 2.30, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Açúcar Cristal', preco: 2.70, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Açúcar Cristal', preco: 2.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
-  { nome: 'Sal Refinado', preco: 0.90, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Sal Refinado', preco: 1.10, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Sal Refinado', preco: 1.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
-  { nome: 'Café Torrado e Moído', preco: 8.50, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Café Torrado e Moído', preco: 9.00, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Café Torrado e Moído', preco: 9.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
-  { nome: 'Óleo de Soja', preco: 7.50, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Óleo de Soja', preco: 7.35, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Óleo de Soja', preco: 7.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
-  { nome: 'Leite Integral', preco: 4.00, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Leite Integral', preco: 4.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Leite Integral', preco: 4.15, nome_mercado: 'Aquarius', supermercado_id: aquarius.id },
-  { nome: 'Farinha de Trigo', preco: 3.75, nome_mercado: 'BemMais', supermercado_id: bemais.id },
-  { nome: 'Farinha de Trigo', preco: 3.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id },
-  { nome: 'Farinha de Trigo', preco: 4.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id }
+  { nome: 'Arroz Integral', preco: 6.00, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Arroz Integral', preco: 7.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Arroz Integral', preco: 6.75, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample },
+  { nome: 'Feijão Preto', preco: 5.00, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Feijão Preto', preco: 4.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Feijão Preto', preco: 5.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample },
+  { nome: 'Macarrão Espaguete', preco: 3.00, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Macarrão Espaguete', preco: 3.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Macarrão Espaguete', preco: 2.75, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample },
+  { nome: 'Açúcar Cristal', preco: 2.30, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Açúcar Cristal', preco: 2.70, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Açúcar Cristal', preco: 2.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample },
+  { nome: 'Sal Refinado', preco: 0.90, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Sal Refinado', preco: 1.10, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Sal Refinado', preco: 1.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample },
+  { nome: 'Café Torrado e Moído', preco: 8.50, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Café Torrado e Moído', preco: 9.00, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Café Torrado e Moído', preco: 9.50, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample },
+  { nome: 'Óleo de Soja', preco: 7.50, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Óleo de Soja', preco: 7.35, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Óleo de Soja', preco: 7.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample },
+  { nome: 'Leite Integral', preco: 4.00, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Leite Integral', preco: 4.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Leite Integral', preco: 4.15, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample },
+  { nome: 'Farinha de Trigo', preco: 3.75, nome_mercado: 'BemMais', supermercado_id: bemais.id, localizacao: localizacoes.sample },
+  { nome: 'Farinha de Trigo', preco: 3.50, nome_mercado: 'Carrefour', supermercado_id: carrefour.id, localizacao: localizacoes.sample },
+  { nome: 'Farinha de Trigo', preco: 4.00, nome_mercado: 'Aquarius', supermercado_id: aquarius.id, localizacao: localizacoes.sample }
 ]
 
 # Cadastrando produtos com preços modificados e associando ao supermercado
 produtos_mercados.each do |produto_mercado|
   produto_base = produtos.find { |p| p[:nome] == produto_mercado[:nome] }
-  Produto.create(produto_base.merge(preco: produto_mercado[:preco], nome_mercado: produto_mercado[:nome_mercado], supermercado_id: produto_mercado[:supermercado_id]))
+  
+  # Adicionando a localização aleatória ao criar o produto 
+  Produto.create(
+    produto_base.merge(
+      preco: produto_mercado[:preco], 
+      nome_mercado: produto_mercado[:nome_mercado], 
+      supermercado_id: produto_mercado[:supermercado_id], 
+      localizacao: produto_mercado[:localizacao] # Adiciona a localização
+    )
+  )
 end
+
