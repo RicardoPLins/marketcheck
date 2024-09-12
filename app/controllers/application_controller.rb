@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
-    before_action :set_default_response_format
+    # before_action :set_default_response_format
   
-    private
+    # private
   
-    def set_default_response_format
-      request.format = :json
-    end
+    # def set_default_response_format
+    #   request.format = :json
+    # end
   end
   

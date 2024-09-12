@@ -1,3 +1,4 @@
 class Produto < ApplicationRecord
-  belongs_to :supermercado
+  has_many :supermercados
+  has_many :produtos_precos
 end
