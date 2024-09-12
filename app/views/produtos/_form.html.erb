@@ -64,6 +64,11 @@
   <%= form.label :supermercado_id %>
   <%= form.collection_select :supermercado_id, Supermercado.all, :id, :nome %>
   </div>
+  <div class="field">
+  <%= form.label :localizacao %>
+  <%= form.text_field :localizacao %>
+  </div>
+
 
   <div>
     <%= form.submit %>

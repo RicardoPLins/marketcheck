@@ -1,6 +1,6 @@
 class FavoritosController < ApplicationController
   # Adiciona um produto à lista de favoritos
-  skip_before_action :verify_authenticity_token, only: [:add]
+  skip_before_action :verify_authenticity_token, only: [:add , :remove]
 
   def add
     # Obtém a lista de favoritos do cache ou inicializa como um array vazio
