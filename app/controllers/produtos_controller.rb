@@ -90,6 +90,6 @@ end
   end
 
   def produto_params
-    params.require(:produto).permit(:nome, :descricao, :categoria, :marca, :preco, :unidade_de_medida, :disponibilidade, :avaliacoes, :imagem, :nome_mercado, :supermercado_id, :localizacao)
+    params.require(:produto).permit(:nome_produto, :categoria,  :preco, :image_url, :nome_mercado, :supermercado_id, :localizacao)
   end  
 end

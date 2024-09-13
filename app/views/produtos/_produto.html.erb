@@ -1,70 +1,78 @@
 <div id="<%= dom_id produto %>">
   <p>
     <strong>Nome:</strong>
-    <%= produto.nome %>
+    <%= produto.nome_produto %>
   </p>
 
-  <p>
+  <%# <p>
     <strong>Descricao:</strong>
     <%= produto.descricao %>
-  </p>
+  </p> %>
 
   <p>
     <strong>Categoria:</strong>
     <%= produto.categoria %>
   </p>
 
-  <p>
+  <%# <p>
     <strong>Marca:</strong>
     <%= produto.marca %>
-  </p>
+  </p> %>
 
   <p>
     <strong>Preco:</strong>
     <%= produto.preco %>
   </p>
 
-  <p>
+  <%# <p>
     <strong>Unidade de medida:</strong>
     <%= produto.unidade_de_medida %>
-  </p>
+  </p> %>
 
-  <p>
+  <%# <p>
     <strong>Disponibilidade:</strong>
     <%= produto.disponibilidade %>
-  </p>
+  </p> %>
 
-  <p>
+  <%# <p>
     <strong>Avaliacoes:</strong>
     <%= produto.avaliacoes %>
-  </p>
+  </p> %>
 
   <p>
     <%# <%= produto.imagem %>
     <%# <%= image_tag produto.url_image, size:"50x50" %>
     <strong>Imagem:</strong>
-    <% if produto.imagem.present? %>
-      <%= image_tag produto.imagem, size: "100x100" %>
+    <% if produto.image_url.present? %>
+      <%= image_tag produto.image_url, size: "100x100" %>
     <% else %>
       <p>Imagem não disponível</p>
     <% end %>
   </p>
 
-  <p>
+  <%# <p>
     <strong>Nome mercado:</strong>
     <%= produto.nome_mercado %>
-  </p>
-  <p>
+  </p> %>
+  <%# <p>
     <strong>Supermercado id:</strong>
     <%= produto.supermercado_id %>
-  </p>
-  <p>
-    <strong>Supermercado endereço:</strong>
-    <%= produto.supermercado.endereco %>
-  </p>
-  <p>
+  <%# </p> %>
+  
+  <%# <p>Localização: <%= produto_preco.supermercado.first.localizacao %></p> %>
+
+
+  <%# <p>
     <strong>Supermercado Horário:</strong>
-    <%= produto.supermercado.horario_de_funcionamento %>
-  </p>
+    <%= produto_preco.supermercado.horario_funcionamento %>
+  </p> %>
+
+  <%# Teste %>
+  <% produto.produtos_precos.each do |produto_preco| %>
+  <p>Supermercado: <%= produto_preco.supermercado.nome_mercado %></p>
+  <p>Localização: <%= produto_preco.supermercado.localizacao %></p>
+  <p>Preço: <%= produto_preco.preco %></p>
+  <% end %>
+
 
 </div>

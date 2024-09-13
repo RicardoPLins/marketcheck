@@ -10,32 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_09_154055) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_13_011537) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "produtos", force: :cascade do |t|
-    t.string "nome"
-    t.string "descricao"
+    t.string "nome_produto", null: false
+    t.string "link_to_item"
+    t.string "image_url"
+    t.decimal "preco", precision: 10, scale: 2, null: false
     t.string "categoria"
-    t.string "marca"
-    t.decimal "preco"
-    t.string "unidade_de_medida"
-    t.boolean "disponibilidade"
-    t.float "avaliacoes"
-    t.string "imagem"
-    t.string "nome_mercado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "supermercado_id", null: false
-    t.string "localizacao"
-    t.index ["supermercado_id"], name: "index_produtos_on_supermercado_id"
+  end
+
+  create_table "produtos_precos", force: :cascade do |t|
+    t.bigint "produto_id", null: false
+    t.bigint "supermercado_id", null: false
+    t.decimal "preco"
+    t.datetime "date_scraped", precision: nil, default: -> { "CURRENT_TIMESTAMP" }
+    t.boolean "promocao", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["produto_id"], name: "index_produtos_precos_on_produto_id"
+    t.index ["supermercado_id"], name: "index_produtos_precos_on_supermercado_id"
   end
 
   create_table "supermercados", force: :cascade do |t|
-    t.string "nome"
-    t.string "endereco"
-    t.string "horario_de_funcionamento"
+    t.string "nome_mercado", null: false
+    t.string "website"
+    t.string "localizacao"
+    t.string "horario_funcionamento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "produtos", "supermercados"
+  add_foreign_key "produtos_precos", "produtos"
+  add_foreign_key "produtos_precos", "supermercados"
 end
