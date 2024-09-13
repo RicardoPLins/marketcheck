@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_12_141450) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_13_011537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,13 +36,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_141450) do
     t.index ["supermercado_id"], name: "index_produtos_precos_on_supermercado_id"
   end
 
-  create_table "supermercados", id: :serial, force: :cascade do |t|
-    t.string "nome_mercado", limit: 255, null: false
-    t.string "website", limit: 255
-    t.string "localizacao", limit: 255
-    t.string "horario_funcionamento", limit: 255
-    t.datetime "created_at", precision: nil, default: -> { "now()" }
-    t.datetime "updated_at", precision: nil, default: -> { "now()" }
+  create_table "supermercados", force: :cascade do |t|
+    t.string "nome_mercado", null: false
+    t.string "website"
+    t.string "localizacao"
+    t.string "horario_funcionamento"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "produtos_precos", "produtos"
