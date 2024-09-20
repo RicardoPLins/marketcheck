@@ -26,7 +26,9 @@ class ProdutosController < ApplicationController
   end
 
   # GET /produtos/1/edit
-  def edit; end
+  def edit
+    @produto = Produto.find(params[:id])
+  end
 
   # POST /produtos or /produtos.json
   def create
