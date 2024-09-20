@@ -1,33 +1,43 @@
+<div id="<%= dom_id @produto %>">
+  <p>
+    <strong>Nome:</strong>
+    <%= @produto.nome_produto %>
+  </p>
+
+  <p>
+    <strong>Categoria:</strong>
+    <%= @produto.categoria %>
+  </p>
+
+  <p>
+    <strong>Preço:</strong>
+    <%= @produto.preco %>
+  </p>
+
+  <p>
+    <strong>Imagem:</strong>
+    <% if @produto.image_url.present? %>
+      <%= image_tag @produto.image_url, size: "100x100" %>
+    <% else %>
+      <p>Imagem não disponível</p>
+    <% end %>
+  </p>
+
+  <strong>Localização:</strong>
+  <% @produto.produtos_precos.each do |produto_preco| %>
+    <p>Supermercado: <%= produto_preco.supermercado.nome_mercado %></p>
+    <p>Localização: <%= produto_preco.supermercado.localizacao %></p>
+    <p>Preço: <%= number_to_currency(produto_preco.preco) %></p>
+  <% end %>
+
+</div>
+
 <p style="color: green"><%= notice %></p>
 
-<%= render @produto %>
-<p>
-  <strong>Localização:</strong>
-  <%= @produto.localizacao %>
-</p>
-
-
-<h3>Outros produtos com o mesmo nome:</h3>
-
-<% if @outros_produtos.any? %>
-  <ul>
-    <% @outros_produtos.each do |produto| %>
-      <li>
-        <%= link_to produto.nome, produto_path(produto) %> 
-        - <%= number_to_currency(produto.preco) %> 
-        (<%= produto.supermercado.nome if produto.supermercado.present? %>)
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Nenhum outro produto com o mesmo nome foi encontrado.</p>
-<% end %>
 
 <div>
   <%= link_to "Edit this produto", edit_produto_path(@produto) %> |
   <%= link_to "Back to produtos", produtos_path %>
   <%= link_to "Favoritos", favoritos_path %>
   <%= button_to "Adicionar aos Favoritos", add_to_favoritos_favorito_path(@produto.id), method: :post %>
-  
-  <%# <%= button_to "Destroy this produto", @produto, method: :delete %>
 </div>

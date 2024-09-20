@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :supermercados
   
   resources :produtos do
@@ -20,5 +21,6 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Define a rota do caminho raiz ("/")
-  # root "posts#index"
+  root to: "home#index"
+
 end

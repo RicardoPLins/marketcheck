@@ -1,4 +1,5 @@
 class ProdutosController < ApplicationController
+  load_and_authorize_resource
   before_action :set_produto, only: %i[show edit update destroy]
 
   # GET /produtos or /produtos.json
@@ -16,7 +17,7 @@ class ProdutosController < ApplicationController
 
   # GET /produtos/1 or /produtos/1.json
   def show
-    @outros_produtos = Produto.where(nome: @produto.nome).where.not(id: @produto.id)
+    @outros_produtos = Produto.where(nome: @produto.nome_produto).where.not(id: @produto.id)
   end
 
   # GET /produtos/new
