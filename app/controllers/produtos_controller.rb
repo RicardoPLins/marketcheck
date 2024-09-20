@@ -5,7 +5,6 @@ class ProdutosController < ApplicationController
   # GET /produtos or /produtos.json
   def index
     @produtos = Produto.all
-
     if params[:search].present?
       @produtos = @produtos.where('nome LIKE ?', "%#{params[:search]}%")
     end
@@ -83,8 +82,29 @@ def produtos_menor
     format.json { render json: @produtos_menor }
   end
 end
+  def adicionar_ao_carrinho
+    @produto = Produto.find(params[:id])
 
+    if user_signed_in?
+      # Obtenha o carrinho do usuário ou crie um novo se não existir
+      Rails.logger.debug "Usuário atual: #{current_user.id}"
+      carrinho = current_user.carrinho || current_user.create_carrinho
+      Rails.logger.debug "Carrinho ID: #{carrinho.id}"
+  
 
+      # Encontre ou inicialize o item no carrinho
+      item = carrinho.item_carrinhos.find_or_initialize_by(produto: @produto)
+      
+      # Inicialize a quantidade se for nil
+      item.quantidade ||= 0  # Se for nil, define como 0
+      item.quantidade += 1   # Agora pode incrementar
+      item.save
+
+      redirect_to carrinho_path, notice: 'Produto adicionado ao carrinho!'
+    else
+      redirect_to new_user_session_path, alert: 'Você precisa estar logado para adicionar produtos ao carrinho.'
+    end
+  end
 
   private
 
@@ -93,6 +113,6 @@ end
   end
 
   def produto_params
-    params.require(:produto).permit(:nome_produto, :categoria,  :preco, :image_url, :nome_mercado, :supermercado_id, :localizacao)
+    params.require(:produto).permit(:nome_produto, :categoria,  :preco, :image_url, :nome_mercado, :localizacao)
   end  
 end

@@ -40,4 +40,5 @@
   <%= link_to "Back to produtos", produtos_path %>
   <%= link_to "Favoritos", favoritos_path %>
   <%= button_to "Adicionar aos Favoritos", add_to_favoritos_favorito_path(@produto.id), method: :post %>
+  <%= button_to 'Adicionar ao Carrinho', adicionar_ao_carrinho_path(@produto), method: :post %>
 </div>

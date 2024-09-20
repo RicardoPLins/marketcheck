@@ -1,29 +1,31 @@
 <p style="color: green"><%= notice %></p>
+<%# <% cache 'produtos_list' do %> %>
+  <h1>Produtos</h1>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+          <%= link_to "Favoritos", favoritos_path %>  
+          <%= link_to "Carrinho", carrinho_path(current_user.id) %>
+        </li>
+      </ul>
+      <%= form_with(url: produtos_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0') do %>
+        <%= text_field_tag :search, params[:search], class: 'form-control mr-sm-2', placeholder: 'Search', aria: { label: 'Search' } %>
+        <%= select_tag :order, options_for_select([['Ordenar por', ''], ['Preço Crescente', 'preco_crescente']], params[:order]), class: 'form-control mr-sm-2' %>
+        <%= submit_tag 'Search', class: 'btn btn-outline-success my-2 my-sm-0' %>
+      <% end %>
+    </div>
+  </nav>
 
-<h1>Produtos</h1>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
-        <%= link_to "Favoritos", favoritos_path %>
-      </li>
-    </ul>
-    <%= form_with(url: produtos_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0') do %>
-      <%= text_field_tag :search, params[:search], class: 'form-control mr-sm-2', placeholder: 'Search', aria: { label: 'Search' } %>
-      <%= select_tag :order, options_for_select([['Ordenar por', ''], ['Preço Crescente', 'preco_crescente']], params[:order]), class: 'form-control mr-sm-2' %>
-      <%= submit_tag 'Search', class: 'btn btn-outline-success my-2 my-sm-0' %>
+  <div id="produtos">
+    <% @produtos.each do |produto| %>
+      <%= render produto %>
+      <p>
+        <%= link_to "Show this produto", produto %>
+      </p>
     <% end %>
   </div>
-</nav>
 
-<div id="produtos">
-  <% @produtos.each do |produto| %>
-    <%= render produto %>
-    <p>
-      <%= link_to "Show this produto", produto %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New produto", new_produto_path %>
+  <%= link_to "New produto", new_produto_path %>
+<%# <% end %> %>
