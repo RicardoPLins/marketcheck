@@ -1,10 +1,11 @@
 class FavoritosController < ApplicationController
   # Adiciona um produto à lista de favoritos
+  skip_before_action :authenticate_user!, only: [:index, :add, :remove]
   skip_before_action :verify_authenticity_token, only: [:add , :remove]
 
   def add
     # Obtém a lista de favoritos do cache ou inicializa como um array vazio
-    favoritos = Rails.cache.fetch('favoritos', expires_in: 10.seconds ) { [] }
+    favoritos = Rails.cache.fetch('favoritos', expires_in: 1.hour ) { [] }
 
     # Converte o ID do produto para inteiro
     product_id = params[:id].to_i
@@ -12,7 +13,7 @@ class FavoritosController < ApplicationController
     # Adiciona o ID do produto aos favoritos, se ainda não estiver na lista
     unless favoritos.include?(product_id)
       favoritos << product_id
-      Rails.cache.write('favoritos', favoritos, expires_in: 10.seconds) # O tempo de expiração já está definido na configuração do cache
+      Rails.cache.write('favoritos', favoritos, expires_in: 1.hour) # O tempo de expiração já está definido na configuração do cache
       flash[:notice] = 'Produto adicionado aos favoritos com sucesso.'
       
       # Transmitir a mensagem para o canal usando ActionCable
@@ -47,7 +48,7 @@ class FavoritosController < ApplicationController
     product_id = params[:id].to_i
 
     if favoritos.delete(product_id)
-      Rails.cache.write('favoritos', favoritos, expires_in: 10.seconds)
+      Rails.cache.write('favoritos', favoritos, expires_in: 1.hour)
       flash[:notice] = 'Produto removido dos favoritos com sucesso.'
       
       # Transmitir a mensagem para o canal usando ActionCable
@@ -68,7 +69,7 @@ class FavoritosController < ApplicationController
     favoritos = Rails.cache.read('favoritos') || []
     if favoritos.present?
       token = SecureRandom.hex(10)
-      Rails.cache.write("favoritos_#{token}", favoritos, expires_in: 10.seconds)
+      Rails.cache.write("favoritos_#{token}", favoritos, expires_in: 1.hour)
 
       redirect_to shared_favoritos_path(token: token), notice: "Lista de favoritos compartilhada com sucesso!"
     else
