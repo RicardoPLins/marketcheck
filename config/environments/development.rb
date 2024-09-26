@@ -74,5 +74,8 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
   # cache
-  config.cache_store = :memory_store, { size: 64.megabytes }
+  # config.action_controller.perform_caching = true
+  config.cache_store = :file_store, "tmp/cache"
+  # config.cache_store = :memory_store, { size: 64.megabytes }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

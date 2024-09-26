@@ -3,12 +3,12 @@
 <div id="<%= dom_id @supermercado %>">
   <p>
     <strong>Nome:</strong>
-    <%= @supermercado.nome %>
+    <%= @supermercado.nome_mercado %>
   </p>
 
   <p>
     <strong>Endereço:</strong>
-    <%= link_to @supermercado.endereco, @supermercado.endereco, target: "_blank" %>
+    <%= link_to @supermercado.localizacao, @supermercado.localizacao, target: "_blank" %>
   </p>
 
   <p>
@@ -24,7 +24,7 @@
     loading="lazy"
     allowfullscreen
     referrerpolicy="no-referrer-when-downgrade"
-    src="<%= @supermercado.endereco %>">
+    src="<%= @supermercado.localizacao %>">
   </iframe>
 </div>
 

@@ -1,76 +1,53 @@
 <%= form_with(model: produto) do |form| %>
   <% if produto.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(produto.errors.count, "error") %> prohibited this produto from being saved:</h2>
+      <h2><%= pluralize(produto.errors.count, "erro") %> proibiu este produto de ser salvo:</h2>
 
       <ul>
-        <% produto.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% produto.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
+  <!-- Nome do Produto -->
   <div>
-    <%= form.label :nome, style: "display: block" %>
-    <%= form.text_field :nome %>
+    <%= form.label :nome_produto, "Nome do Produto", style: "display: block" %>
+    <%= form.text_field :nome_produto %>
   </div>
 
-  <div>
-    <%= form.label :descricao, style: "display: block" %>
-    <%= form.text_field :descricao %>
-  </div>
-
+  <!-- Categoria -->
   <div>
     <%= form.label :categoria, style: "display: block" %>
     <%= form.text_field :categoria %>
   </div>
 
-  <div>
-    <%= form.label :marca, style: "display: block" %>
-    <%= form.text_field :marca %>
-  </div>
-
+  <!-- Preço -->
   <div>
     <%= form.label :preco, style: "display: block" %>
     <%= form.text_field :preco %>
   </div>
 
+  <!-- Imagem -->
   <div>
-    <%= form.label :unidade_de_medida, style: "display: block" %>
-    <%= form.text_field :unidade_de_medida %>
+    <%= form.label :image_url, "URL da Imagem", style: "display: block" %>
+    <%= form.text_field :image_url %>
   </div>
 
+  <!-- Supermercado -->
+  <div class="field">
+    <%= form.label :supermercado_id, "Supermercado", style: "display: block" %>
+    <%= form.collection_select :supermercado_id, Supermercado.all, :id, :nome_mercado %>
+  </div>
+
+  <!-- Disponibilidade -->
   <div>
     <%= form.label :disponibilidade, style: "display: block" %>
     <%= form.check_box :disponibilidade %>
   </div>
 
   <div>
-    <%= form.label :avaliacoes, style: "display: block" %>
-    <%= form.text_field :avaliacoes %>
-  </div>
-
-  <div>
-    <%= form.label :imagem, style: "display: block" %>
-    <%= form.text_field :imagem %>
-  </div>
-
-  <div>
-    <%= form.label :nome_mercado, style: "display: block" %>
-    <%= form.text_field :nome_mercado %>
-  </div>
-  <div class="field">
-  <%= form.label :supermercado_id %>
-  <%= form.collection_select :supermercado_id, Supermercado.all, :id, :nome %>
-  </div>
-  <div class="field">
-  <%= form.label :localizacao %>
-  <%= form.text_field :localizacao %>
-  </div>
-
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit "Salvar Produto" %>
   </div>
 <% end %>

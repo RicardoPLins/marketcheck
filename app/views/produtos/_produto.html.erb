@@ -5,18 +5,8 @@
   </p>
 
   <p>
-    <strong>Descricao:</strong>
-    <%= produto.descricao %>
-  </p>
-
-  <p>
     <strong>Categoria:</strong>
     <%= produto.categoria %>
-  </p>
-
-  <p>
-    <strong>Marca:</strong>
-    <%= produto.marca %>
   </p>
 
   <p>
@@ -24,47 +14,20 @@
     <%= produto.preco %>
   </p>
 
-  <p>
-    <strong>Unidade de medida:</strong>
-    <%= produto.unidade_de_medida %>
-  </p>
 
   <p>
-    <strong>Disponibilidade:</strong>
-    <%= produto.disponibilidade %>
-  </p>
-
-  <p>
-    <strong>Avaliacoes:</strong>
-    <%= produto.avaliacoes %>
-  </p>
-
-  <p>
-    <%# <%= produto.imagem %>
-    <%# <%= image_tag produto.url_image, size:"50x50" %>
     <strong>Imagem:</strong>
-    <% if produto.imagem.present? %>
-      <%= image_tag produto.imagem, size: "100x100" %>
+    <% if produto.image_url.present? %>
+      <%= image_tag produto.image_url, size: "100x100" %>
     <% else %>
       <p>Imagem não disponível</p>
     <% end %>
   </p>
+  <% produto.produtos_precos.each do |produto_preco| %>
+  <p>Supermercado: <%= produto_preco.supermercado.nome_mercado %></p>
+  <p>Localização: <%= produto_preco.supermercado.localizacao %></p>
+  <p>Preço: <%= produto_preco.preco %></p>
+  <% end %>
 
-  <p>
-    <strong>Nome mercado:</strong>
-    <%= produto.nome_mercado %>
-  </p>
-  <p>
-    <strong>Supermercado id:</strong>
-    <%= produto.supermercado_id %>
-  </p>
-  <p>
-    <strong>Supermercado endereço:</strong>
-    <%= produto.supermercado.endereco %>
-  </p>
-  <p>
-    <strong>Supermercado Horário:</strong>
-    <%= produto.supermercado.horario_de_funcionamento %>
-  </p>
 
 </div>

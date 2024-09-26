@@ -1,10 +1,10 @@
 class ProdutosController < ApplicationController
+  load_and_authorize_resource
   before_action :set_produto, only: %i[show edit update destroy]
 
   # GET /produtos or /produtos.json
   def index
     @produtos = Produto.all
-
     if params[:search].present?
       @produtos = @produtos.where('nome LIKE ?', "%#{params[:search]}%")
     end
@@ -16,7 +16,7 @@ class ProdutosController < ApplicationController
 
   # GET /produtos/1 or /produtos/1.json
   def show
-    @outros_produtos = Produto.where(nome: @produto.nome).where.not(id: @produto.id)
+    @outros_produtos = Produto.where(nome: @produto.nome_produto).where.not(id: @produto.id)
   end
 
   # GET /produtos/new
@@ -25,7 +25,9 @@ class ProdutosController < ApplicationController
   end
 
   # GET /produtos/1/edit
-  def edit; end
+  def edit
+    @produto = Produto.find(params[:id])
+  end
 
   # POST /produtos or /produtos.json
   def create
@@ -80,8 +82,29 @@ def produtos_menor
     format.json { render json: @produtos_menor }
   end
 end
+  def adicionar_ao_carrinho
+    @produto = Produto.find(params[:id])
 
+    if user_signed_in?
+      # Obtenha o carrinho do usuário ou crie um novo se não existir
+      Rails.logger.debug "Usuário atual: #{current_user.id}"
+      carrinho = current_user.carrinho || current_user.create_carrinho
+      Rails.logger.debug "Carrinho ID: #{carrinho.id}"
+  
 
+      # Encontre ou inicialize o item no carrinho
+      item = carrinho.item_carrinhos.find_or_initialize_by(produto: @produto)
+      
+      # Inicialize a quantidade se for nil
+      item.quantidade ||= 0  # Se for nil, define como 0
+      item.quantidade += 1   # Agora pode incrementar
+      item.save
+
+      redirect_to carrinho_path, notice: 'Produto adicionado ao carrinho!'
+    else
+      redirect_to new_user_session_path, alert: 'Você precisa estar logado para adicionar produtos ao carrinho.'
+    end
+  end
 
   private
 
@@ -90,6 +113,6 @@ end
   end
 
   def produto_params
-    params.require(:produto).permit(:nome, :descricao, :categoria, :marca, :preco, :unidade_de_medida, :disponibilidade, :avaliacoes, :imagem, :nome_mercado, :supermercado_id, :localizacao)
+    params.require(:produto).permit(:nome_produto, :categoria,  :preco, :image_url, :nome_mercado, :localizacao)
   end  
 end

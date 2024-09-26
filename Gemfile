@@ -78,3 +78,7 @@ gem 'redis'
 gem 'redis-rails'
 # Gem do rabbitmq
 gem 'bunny'
+#Gem autorização e autenticação
+gem 'cancancan'
+
+gem 'devise', '~> 4.9'
