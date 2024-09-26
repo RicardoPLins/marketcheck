@@ -1,5 +1,6 @@
 class SupermercadosController < ApplicationController
   before_action :set_supermercado, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   # GET /supermercados or /supermercados.json
   def index

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.2.3"
+ruby "~> 3.2.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
@@ -78,3 +78,7 @@ gem 'redis'
 gem 'redis-rails'
 # Gem do rabbitmq
 gem 'bunny'
+#Gem autorização e autenticação
+gem 'cancancan'
+
+gem 'devise', '~> 4.9'
