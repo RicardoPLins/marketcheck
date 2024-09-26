@@ -1,5 +1,8 @@
 <h1>Meus Favoritos</h1>
 <%= link_to "Produtos", produtos_path %>
+<% if user_signed_in? %>
+            <%= link_to "Carrinho", carrinho_path(current_user.id) %>
+          <% end %>   
 <% @favoritos.each do |produto| %>
   <div>
     <%= render produto %>
@@ -7,6 +10,8 @@
     <%= button_to 'Remover dos Favoritos', remove_from_favoritos_favorito_path(produto.id), method: :delete %>
   </div>
 <% end %>
+<%= button_to 'Adicionar todos ao carrinho', adicionar_todos_ao_carrinho_path, method: :post, class: 'btn btn-primary' %>
+
 <%= link_to "Compartilhar lista de favoritos", share_favoritos_path, method: :post, class: "btn btn-primary", data: { confirm: "Você tem certeza que deseja compartilhar a lista?" } %>
 
 <% if @share_link.present? %>
