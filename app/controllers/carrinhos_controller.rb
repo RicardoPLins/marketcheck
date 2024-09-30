@@ -17,4 +17,16 @@ class CarrinhosController < ApplicationController
     item.destroy
     redirect_to carrinho_path(current_user.id), notice: 'Produto removido do carrinho!'
   end
+
+  def organizar_caminho
+    @carrinho = current_user.carrinho || current_user.create_carrinho
+
+    # A junção deve incluir a tabela que tem a relação com o supermercado
+    @produtos = @carrinho.produtos
+                          .joins(:produtos_precos) # Substitua por 'produtos_precos' se necessário
+                          .joins('JOIN supermercados ON produtos_precos.supermercado_id = supermercados.id')
+                          .order('supermercados.nome_mercado ASC, produtos.indicacao_no_mercado ASC')
+
+    render :show
+  end
 end
