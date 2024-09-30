@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery unless: -> { Rails.env.development? }
-  
+
   # Permitir a ação de login
   before_action :authenticate_user!
   
