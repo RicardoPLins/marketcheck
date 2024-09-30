@@ -86,4 +86,33 @@ class FavoritosController < ApplicationController
       redirect_to favoritos_path, alert: "Lista de favoritos não encontrada ou está vazia."
     end
   end  
+  #add tds os favoritos no carrinho
+  def adicionar_todos_ao_carrinho
+    if user_signed_in?
+      # Obtém o carrinho do usuário ou cria um novo se não existir
+      carrinho = current_user.carrinho || current_user.create_carrinho
+  
+      # Verifica se a lista de favoritos está vazia
+      favoritos = Rails.cache.fetch('favoritos', expires_in: 1.hour) { [] }
+      if favoritos.empty?
+        redirect_to favoritos_path, alert: 'Sua lista de favoritos está vazia!'
+        return
+      end
+  
+      # Adiciona cada produto da lista de favoritos ao carrinho
+      favoritos.each do |produto_id|
+        produto = Produto.find(produto_id)
+        item = carrinho.item_carrinhos.find_or_initialize_by(produto: produto)
+        
+        # Inicializa a quantidade se for nil
+        item.quantidade ||= 0  # Se for nil, define como 0
+        item.quantidade += 1   # Agora pode incrementar
+        item.save
+      end
+  
+      redirect_to carrinho_path(current_user.id), notice: 'Todos os produtos foram adicionados ao carrinho!'
+    else
+      redirect_to new_user_session_path, alert: 'Você precisa estar logado para adicionar produtos ao carrinho.'
+    end
+  end
 end
