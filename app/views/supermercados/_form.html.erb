@@ -1,0 +1,32 @@
+<%= form_with(model: supermercado) do |form| %>
+  <% if supermercado.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(supermercado.errors.count, "error") %> prohibited this supermercado from being saved:</h2>
+
+      <ul>
+        <% supermercado.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome_mercado, style: "display: block" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :localizacao, style: "display: block" %>
+    <%= form.text_field :endereco %>
+  </div>
+
+  <div>
+    <%= form.label :horario_funcionamento, style: "display: block" %>
+    <%= form.text_field :horario_funcionamento %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

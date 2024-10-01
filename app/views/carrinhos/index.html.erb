@@ -1,0 +1,7 @@
+<h1>Todos os Carrinhos</h1>
+
+<ul>
+  <% @carrinhos.each do |carrinho| %>
+    <li>Carrinho ID: <%= carrinho.id %> | User ID: <%= carrinho.user.id %></li>
+  <% end %>
+</ul>

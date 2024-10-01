@@ -1,0 +1,17 @@
+<h1>Meu Carrinho</h1>
+<%= link_to "Produtos", produtos_path %>  
+<%= link_to "Organizar Caminho", organizar_caminho_carrinhos_path %> 
+
+<% if @produtos.any? %>
+  <ul>
+    <% @produtos.each do |produto| %>
+      <li>
+        <%= render produto %>
+        <%= button_to 'Remover do Carrinho', remover_produto_carrinho_path(produto.id), method: :delete %>
+      </li>
+    <% end %>
+  </ul>
+  <%= button_to 'Remover Todos os Produtos', remover_todos_carrinhos_path, method: :delete, data: { confirm: 'Você tem certeza que deseja remover todos os produtos?' } %>
+<% else %>
+  <p>Seu carrinho está vazio.</p>
+<% end %>
