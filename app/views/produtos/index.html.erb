@@ -1,5 +1,4 @@
 <p style="color: green"><%= notice %></p>
- <% cache 'produtos_list' do %>
   <h1>Produtos</h1>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -32,4 +31,4 @@
   <%= paginate @produtos %>
 
   <%= link_to "New produto", new_produto_path %>
- <% end %>
+<% end %>
