@@ -1,29 +1,35 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  # Rotas do Devise para usuários
+  devise_for :users, controllers: { 
+    sessions: 'users/sessions', 
+    registrations: 'users/registrations'  # Adicionando o controlador de registros
+  }
+
+  # Rotas para Supermercados e Produtos
   resources :supermercados
-  
+
   resources :produtos do
-    post 'add_favoritos', on: :member, as: 'add_favoritos' # Rota para adicionar aos favoritos
+    post 'add_favoritos', on: :member, as: 'add_favoritos'
     collection do
-      get 'produtos_menor' # Rota para buscar o produto mais barato
+      get 'produtos_menor'
     end
   end
 
+  # Rotas para Favoritos
   resources :favoritos, only: [:index] do
-    post 'add', on: :member, as: 'add_to_favoritos' # Rota para adicionar à lista de favoritos
-    delete 'remove', on: :member, as: 'remove_from_favoritos' # Rota para remover da lista de favoritos
+    post 'add', on: :member, as: 'add_to_favoritos'
+    delete 'remove', on: :member, as: 'remove_from_favoritos'
     post 'share', on: :collection, as: 'share'
     get 'shared/:token', on: :collection, to: 'favoritos#show_shared', as: 'shared'
   end
-  
 
-  # Rota para verificar o status de saúde do aplicativo
+  # Verificar o status de saúde do aplicativo
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Define a rota do caminho raiz ("/")
-  root to: "home#index"
+  # Rota raiz
+  root to: "home#index"  # Verifique se você tem o HomeController ou altere esta rota
 
-  #carrinhos de compra
+  # Carrinhos de compra
   resources :carrinhos, only: [:show] do
     delete :remover_todos, on: :collection
     get 'organizar_caminho', on: :collection
