@@ -4,8 +4,13 @@ class CarrinhosController < ApplicationController
   def show
     @carrinho = current_user.carrinho || current_user.create_carrinho
     @produtos = @carrinho.produtos
+
+    @produtos = Produto.all.page(
+      params[:page]
+    ).per(5)
+
   end
-  
+
 
   def remover_todos
     current_user.carrinho.item_carrinhos.destroy_all

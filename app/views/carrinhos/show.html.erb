@@ -1,6 +1,8 @@
 <h1>Meu Carrinho</h1>
-<%= link_to "Produtos", produtos_path %>  
+<%= link_to "Produtos", produtos_path %>
 
+
+<div>
 <% if @produtos.any? %>
   <ul>
     <% @produtos.each do |produto| %>
@@ -14,3 +16,6 @@
 <% else %>
   <p>Seu carrinho está vazio.</p>
 <% end %>
+</div>
+
+<%= paginate @produtos %>

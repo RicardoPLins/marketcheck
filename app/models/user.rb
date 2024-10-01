@@ -3,7 +3,13 @@ class User < ApplicationRecord
   after_create :create__empty_cart
   enum role: {user: 0, admin:1}
 
-  private 
+  
+  validates :email, presence: true
+  validates :password, presence:true
+  validates :password_confirmation, presence:true
+
+
+  private
   def create__empty_cart
     Carrinho.create(user_id: self.id)
   end
