@@ -1,0 +1,11 @@
+<h1>Lista de Favoritos Compartilhada</h1>
+
+<% if @favoritos.any? %>
+  <% @favoritos.each do |produto| %>
+    <div>
+      <%= render produto %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Nenhum produto na lista de favoritos.</p>
+<% end %>

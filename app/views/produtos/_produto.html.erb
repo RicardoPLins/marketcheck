@@ -1,0 +1,33 @@
+<div id="<%= dom_id produto %>">
+  <p>
+    <strong>Nome:</strong>
+    <%= produto.nome_produto %>
+  </p>
+
+  <p>
+    <strong>Categoria:</strong>
+    <%= produto.categoria %>
+  </p>
+
+  <p>
+    <strong>Preco:</strong>
+    <%= produto.preco %>
+  </p>
+
+
+  <p>
+    <strong>Imagem:</strong>
+    <% if produto.image_url.present? %>
+      <%= image_tag produto.image_url, size: "100x100" %>
+    <% else %>
+      <p>Imagem não disponível</p>
+    <% end %>
+  </p>
+  <% produto.produtos_precos.each do |produto_preco| %>
+  <p>Supermercado: <%= produto_preco.supermercado.nome_mercado %></p>
+  <p>Localização: <%= produto_preco.supermercado.localizacao %></p>
+  <p>Preço: <%= produto_preco.preco %></p>
+  <% end %>
+
+
+</div>

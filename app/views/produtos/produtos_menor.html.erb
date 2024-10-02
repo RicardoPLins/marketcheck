@@ -1,0 +1,9 @@
+<h1>Produtos de menor valor</h1>
+<div id="produtos">
+  <% @produtos_menor.each do |produto| %>
+    <%= render produto %>
+    <p>
+      <%= link_to "Show this produto", produto %>
+    </p>
+  <% end %>
+</div>
