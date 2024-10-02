@@ -1,0 +1,9 @@
+.button-acessar-prod-e-super{
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.btn-ir-para-tela{
+  color: aqua;
+}

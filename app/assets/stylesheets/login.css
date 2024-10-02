@@ -1,0 +1,86 @@
+/* Estilo do container principal */
+.container-new-produto {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Título da página de login */
+.titulo-login {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Estilo do formulário de login */
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Estilo para os rótulos (labels) */
+.label-input {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Estilo dos campos de entrada (input fields) */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Estilo para o checkbox de "Remember me" */
+.remember-field {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-remember {
+  margin-right: 10px;
+}
+
+.label-remember {
+  font-weight: normal;
+}
+
+/* Estilo do botão de envio (submit) */
+.btn-submit {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.btn-submit:hover {
+  background-color: #218838;
+}
+
+/* Estilo para os links da seção "users/shared/links" */
+.links-person {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.links-person a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.links-person a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}

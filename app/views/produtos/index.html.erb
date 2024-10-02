@@ -1,18 +1,21 @@
 <p><%= notice %></p>
-  <h1 >Produtos</h1>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
-        <%= link_to "Favoritos", favoritos_path, class: "nav-link" %>
-        <% if user_signed_in? %>
-          <%= link_to "Carrinho", carrinho_path(current_user.id), class: "nav-link" %>
-        <% end %>
-      </li>
-    </ul>
 
-    <%= form_with(url: produtos_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0') do %>
+<h1>Produtos</h1>
+
+<nav class="">
+  <div class="teste-fles-list" id="navbarSupportedContent">
+        <p><a class="nav-link" href="#">Home</a></p>
+        <p>
+        <%= link_to "Favoritos", favoritos_path, class: "nav-link" %>
+        </p>
+        <% if user_signed_in? %>
+        <p>
+          <%= link_to "Carrinho", carrinho_path(current_user.id), class: "nav-link" %>
+        </p>
+        <% end %>
+  </div>
+  <div class="teste-fles-list-2">
+    <%= form_with(url: produtos_path, method: :get, local: true, class: '') do %>
       <%= text_field_tag :search, params[:search], class: 'form-control mr-sm-2', placeholder: 'Buscar', aria: { label: 'Buscar' } %>
       <%= select_tag :order, options_for_select([['Ordenar por', ''], ['Preço Crescente', 'preco_crescente']], params[:order]), class: 'form-control mr-sm-2' %>
       <%= submit_tag 'Search', class: 'btn btn-outline-success my-2 my-sm-0' %>
@@ -20,17 +23,31 @@
   </div>
 </nav>
 
-  <div id="produtos">
-    <% @produtos.each do |produto| %>
-      <%= render produto %>
-      <p>
-        <%= link_to "Show this produto", produto %>
+<div class="container-produtos">
+  <% @produtos.each do |produto| %>
+    <div class="produto-card" id="<%= dom_id produto %>">
+      <p class="nome-produto"><strong>Nome:</strong> <%= produto.nome_produto %></p>
+      <p class="categoria-produto"><strong>Categoria:</strong> <%= produto.categoria %></p>
+      <p class="valor-produto"><strong>Preço:</strong> <%= produto.preco %></p>
+      <p><strong>Imagem:</strong>
+        <% if produto.image_url.present? %>
+          <%= image_tag produto.image_url, size: "100x100" %>
+        <% else %>
+          <p>Imagem não disponível</p>
+        <% end %>
       </p>
-    <% end %>
-  </div>
-
-  <%= paginate @produtos %>
-
-  <% if can? :create, Produto %>
-    <%= link_to 'Cadastrar novo produto', new_produto_path %>
+      <% produto.produtos_precos.each do |produto_preco| %>
+        <p>Supermercado: <%= produto_preco.supermercado.nome_mercado %></p>
+        <p>Localização: <%= produto_preco.supermercado.localizacao %></p>
+        <p>Preço: <%= produto_preco.preco %></p>
+      <% end %>
+      <p><%= link_to "Show this produto", produto, class: 'btn btn-primary btn-block' %></p>
+    </div>
   <% end %>
+</div>
+
+<%= paginate @produtos %>
+
+<% if can? :create, Produto %>
+  <%= link_to 'Cadastrar novo produto', new_produto_path, class: "btn btn-success" %>
+<% end %>

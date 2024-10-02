@@ -1,4 +1,5 @@
 <%= form_with(model: supermercado) do |form| %>
+<div class="container-new-produto">
   <% if supermercado.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(supermercado.errors.count, "error") %> prohibited this supermercado from being saved:</h2>
@@ -29,4 +30,5 @@
   <div>
     <%= form.submit %>
   </div>
+</div>
 <% end %>

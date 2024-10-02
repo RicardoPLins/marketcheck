@@ -2,16 +2,15 @@
 
 <h1>Supermercados</h1>
 
-<div id="supermercados">
+<div class="carrinho-container" id="supermercados">
   <% @supermercados.each do |supermercado| %>
     <%= render supermercado %>
     <p>
-      <%= link_to "Show this supermercado", supermercado %>
+      <%= link_to "Show this supermercado", supermercado, class: "link-produtos" %>
     </p>
   <% end %>
 </div>
-<% if can? :edit, Supermercado %>
 <%= paginate @supermercados %>
-
+<% if can? :edit, Supermercado %>
   <%= link_to "New supermercado", new_supermercado_path %>
 <% end %>

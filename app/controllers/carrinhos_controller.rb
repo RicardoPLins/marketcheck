@@ -10,7 +10,7 @@ class CarrinhosController < ApplicationController
       format.json { render json: @produtos } # renderiza os produtos em formato JSON
     end
 
-    @produtos = Produto.all.page(
+    @carrinho = Carrinho.all.page(
       params[:page]
     ).per(5)
 

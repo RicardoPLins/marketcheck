@@ -9,7 +9,12 @@
 }
 
 form div {
-  margin-bottom: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 form label {
@@ -36,4 +41,14 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
   background-color: #218838;
+}
+
+.links-person {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.links-person a {
+  color: #007bff;
+  text-decoration: none;
 }

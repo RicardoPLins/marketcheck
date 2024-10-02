@@ -1,4 +1,4 @@
-<div class="" id="<%= dom_id produto %>">
+<div class="teste-color" id="<%= dom_id produto %>">
   <p class="nome-produto">
     <strong>Nome:</strong>
     <%= produto.nome_produto %>
@@ -13,7 +13,6 @@
     <strong>Preco:</strong>
     <%= produto.preco %>
   </p>
-
 
   <p>
     <strong>Imagem:</strong>
@@ -30,8 +29,12 @@
 
   <% end %>
 
+ <%
+=begin%>
  <p>
   <strong>Localização no mercado:</strong>
   <%= produto.indicacao_no_mercado %>
   </p>
+<%
+=end%>
 </div>
