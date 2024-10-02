@@ -1,5 +1,5 @@
 class ProdutosController < ApplicationController
-  # load_and_authorize_resource
+  load_and_authorize_resource
   skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_produto, only: %i[show edit update destroy]
 
@@ -22,11 +22,13 @@ class ProdutosController < ApplicationController
 
   # GET /produtos/new
   def new
+    authorize! :create, @produto
     @produto = Produto.new
   end
 
   # GET /produtos/1/edit
   def edit
+    authorize! :create, @produto
     @produto = Produto.find(params[:id])
   end
 
@@ -85,6 +87,8 @@ def produtos_menor
 end
   def adicionar_ao_carrinho
     @produto = Produto.find(params[:id])
+
+    authorize! :add_to_carrinho, @produto
 
     if user_signed_in?
       # Obtenha o carrinho do usuário ou crie um novo se não existir
