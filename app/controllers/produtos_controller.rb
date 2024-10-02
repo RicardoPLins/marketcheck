@@ -14,7 +14,11 @@ class ProdutosController < ApplicationController
       @produtos = @produtos.order(preco: :asc)
     end
 
-     
+    @produtos = Produto.all.page(
+      params[:page]
+    ).per(10)
+
+
   end
 
   # GET /produtos/1 or /produtos/1.json
