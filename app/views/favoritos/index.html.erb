@@ -12,8 +12,3 @@
 <% end %>
 <%= button_to 'Adicionar todos ao carrinho', adicionar_todos_ao_carrinho_path, method: :post, class: 'btn btn-primary' %>
 
-<%= link_to "Compartilhar lista de favoritos", share_favoritos_path, method: :post, class: "btn btn-primary", data: { confirm: "Você tem certeza que deseja compartilhar a lista?" } %>
-
-<% if @share_link.present? %>
-  <p>Link para compartilhar: <%= link_to @share_link, @share_link, target: "_blank" %></p>
-<% end %>

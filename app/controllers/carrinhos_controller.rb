@@ -4,8 +4,13 @@ class CarrinhosController < ApplicationController
   def show
     @carrinho = current_user.carrinho || current_user.create_carrinho
     @produtos = @carrinho.produtos
-  end
   
+    respond_to do |format|
+      format.html # renderiza a view padrão show.html.erb
+      format.json { render json: @produtos } # renderiza os produtos em formato JSON
+    end
+  end
+    
 
   def remover_todos
     current_user.carrinho.item_carrinhos.destroy_all

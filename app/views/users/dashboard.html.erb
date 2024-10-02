@@ -1,0 +1,8 @@
+<h1>Bem-vindo, <%= current_user.email %>!</h1>
+
+<p>Use os links abaixo para acessar a listagem de produtos e supermercados:</p>
+
+<ul>
+  <li><%= link_to 'Ver Produtos', produtos_path %></li>
+  <li><%= link_to 'Ver Supermercados', supermercados_path %></li>
+</ul>

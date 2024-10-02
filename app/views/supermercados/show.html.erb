@@ -11,25 +11,10 @@
     <%= link_to @supermercado.localizacao, @supermercado.localizacao, target: "_blank" %>
   </p>
 
-  <p>
-    <strong>Horário de funcionamento:</strong>
-    <%= @supermercado.horario_de_funcionamento %>
-  </p>
-
-  <h3>Mapa</h3>
-  <iframe
-    width="600"
-    height="450"
-    style="border:0"
-    loading="lazy"
-    allowfullscreen
-    referrerpolicy="no-referrer-when-downgrade"
-    src="<%= @supermercado.localizacao %>">
-  </iframe>
-</div>
-
 <div>
-  <%= link_to "Edit this supermercado", edit_supermercado_path(@supermercado) %> |
+  <% if can? :edit, @supermercado %>
+    <%= link_to "Edit this supermercado", edit_supermercado_path(@supermercado) %> |
+  <% end %>
   <%= link_to "Back to supermercados", supermercados_path %>
 
   <%= button_to "Destroy this supermercado", @supermercado, method: :delete %>
