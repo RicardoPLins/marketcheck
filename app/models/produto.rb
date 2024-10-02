@@ -6,5 +6,5 @@ class Produto < ApplicationRecord
   validates :categoria, presence: true
   validates :preco, presence: true
   validates :image_url, presence: true
-  validates :disponibilidade, presence: true
+  validates :supermercados_id, presence: true
 end
