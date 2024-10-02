@@ -1,6 +1,4 @@
-<%
-=begin%>
- <div id="<%= dom_id @produto %>">
+<div id="<%= dom_id @produto %>">
   <p>
     <strong>Nome:</strong>
     <%= @produto.nome_produto %>
@@ -42,11 +40,9 @@
   <% if can? :edit, @produto %>
       <%= link_to "Edit this produto", edit_produto_path(@produto) %>
   <% end %>
-
+  
   <%= link_to "Back to produtos", produtos_path %>
   <%= link_to "Favoritos", favoritos_path %>
   <%= button_to "Adicionar aos Favoritos", add_to_favoritos_favorito_path(@produto.id), method: :post %>
   <%= button_to 'Adicionar ao Carrinho', adicionar_ao_carrinho_path(@produto), method: :post %>
 </div>
-<%
-=end%>

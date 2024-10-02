@@ -5,7 +5,7 @@ class ProdutosController < ApplicationController
 
   # GET /produtos or /produtos.json
   def index
-    @produtos = Produto.all
+    @produtos = Produto.page(params[:page]).per(10)
     if params[:search].present?
       @produtos = @produtos.where('nome LIKE ?', "%#{params[:search]}%")
     end
@@ -13,12 +13,6 @@ class ProdutosController < ApplicationController
     if params[:order] == 'preco_crescente'
       @produtos = @produtos.order(preco: :asc)
     end
-
-    @produtos = Produto.all.page(
-      params[:page]
-    ).per(10)
-
-
   end
 
   # GET /produtos/1 or /produtos/1.json
@@ -81,7 +75,7 @@ def produtos_menor
   # Obtenha os produtos com o menor preço por nome usando uma subconsulta
   subquery = Produto.select('nome, MIN(preco) AS min_preco')
                     .group('nome')
-
+          
 
   @produtos_menor = Produto.joins("INNER JOIN (#{subquery.to_sql}) AS sub ON produtos.nome = sub.nome AND produtos.preco = sub.min_preco")
 
@@ -101,11 +95,11 @@ end
       Rails.logger.debug "Usuário atual: #{current_user.id}"
       carrinho = current_user.carrinho || current_user.create_carrinho
       Rails.logger.debug "Carrinho ID: #{carrinho.id}"
-
+  
 
       # Encontre ou inicialize o item no carrinho
       item = carrinho.item_carrinhos.find_or_initialize_by(produto: @produto)
-
+      
       # Inicialize a quantidade se for nil
       item.quantidade ||= 0  # Se for nil, define como 0
       item.quantidade += 1   # Agora pode incrementar
@@ -125,5 +119,5 @@ end
 
   def produto_params
     params.require(:produto).permit(:nome_produto, :categoria,  :preco, :image_url, :nome_mercado, :localizacao)
-  end
+  end  
 end

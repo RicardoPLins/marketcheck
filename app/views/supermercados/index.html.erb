@@ -1,7 +1,22 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Supermercados</h1>
-
+<div class="teste-fles-list" id="navbarSupportedContent">
+        <p>
+        <%= link_to 'Home', user_signed_in? ? (current_user.admin? ? admin_dashboard_path : user_dashboard_path) : '#' %>
+        </p>
+        <p>
+        <%= link_to "Produtos", produtos_path, class: "nav-link" %>
+        </p>
+        <p>
+        <%= link_to "Favoritos", favoritos_path, class: "nav-link" %>
+        </p>
+        <% if user_signed_in? %>
+        <p>
+          <%= link_to "Carrinho", carrinho_path(current_user.id), class: "nav-link" %>
+        </p>
+        <% end %>
+  </div>
 <div class="carrinho-container" id="supermercados">
   <% @supermercados.each do |supermercado| %>
     <%= render supermercado %>

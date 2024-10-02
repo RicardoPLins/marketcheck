@@ -4,7 +4,11 @@
 
 <nav class="">
   <div class="teste-fles-list" id="navbarSupportedContent">
-        <p><a class="nav-link" href="#">Home</a></p>
+        <p>
+        <%= link_to 'Home', user_signed_in? ? (current_user.admin? ? admin_dashboard_path : user_dashboard_path) : '#' , class: "nav-link" %>
+        </p>
+        <%= link_to "Supermercados", supermercados_path, class: "nav-link" %>
+        </p>
         <p>
         <%= link_to "Favoritos", favoritos_path, class: "nav-link" %>
         </p>

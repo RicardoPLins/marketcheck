@@ -57,7 +57,8 @@ class FavoritosController < ApplicationController
       # Publicar mensagem no RabbitMQ
       RabbitmqService.publish('favoritos_queue', 'Um produto foi removido da lista de favoritos.')
 
-      render json: { status: 'success', message: 'Produto removido dos favoritos' }, status: :ok
+      # render json: { status: 'success', message: 'Produto removido dos favoritos' }, status: :ok
+      redirect_to favoritos_path, notice: 'Produto removido dos favoritos!'
     else
       flash[:alert] = 'Produto não encontrado na lista de favoritos.'
       render json: { status: 'error', message: 'Produto não encontrado na lista de favoritos' }, status: :unprocessable_entity

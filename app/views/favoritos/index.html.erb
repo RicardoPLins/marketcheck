@@ -2,12 +2,12 @@
 <%= link_to "Produtos", produtos_path %>
 <% if user_signed_in? %>
             <%= link_to "Carrinho", carrinho_path(current_user.id) %>
-          <% end %>
+          <% end %>   
 <% @favoritos.each do |produto| %>
   <div>
     <%= render produto %>
     <!-- Outras informações do produto -->
-    <%= button_to 'Remover dos Favoritos', remove_from_favoritos_favorito_path(produto.id), method: :delete, class: 'btn btn-primary' %>
+    <%= button_to 'Remover dos Favoritos', remove_from_favoritos_favorito_path(produto.id), method: :delete %>
   </div>
 <% end %>
 <%= button_to 'Adicionar todos ao carrinho', adicionar_todos_ao_carrinho_path, method: :post, class: 'btn btn-primary' %>

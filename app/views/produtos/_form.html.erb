@@ -1,6 +1,4 @@
-
-<%=   form_with(model: produto) do |form| %>
-<div class="container-new-produto">
+<%= form_with(model: produto) do |form| %>
   <% if produto.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(produto.errors.count, "erro") %> proibiu este produto de ser salvo:</h2>
@@ -43,8 +41,7 @@
     <%= form.collection_select :supermercado_id, Supermercado.all, :id, :nome_mercado %>
   </div>
 
-  <div >
+  <div>
     <%= form.submit "Salvar Produto" %>
   </div>
-</div>
 <% end %>

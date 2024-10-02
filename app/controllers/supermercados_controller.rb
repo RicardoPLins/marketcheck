@@ -72,6 +72,6 @@ class SupermercadosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def supermercado_params
-      params.require(:supermercado).permit(:nome, :endereco, :horario_de_funcionamento)
+      params.require(:supermercado).permit(:nome_mercado, :localizacao, :horario_de_funcionamento)
     end
 end

@@ -5,9 +5,10 @@
   <% if @produtos.any? %>
     <ul class="lista-produtos">
       <% @produtos.each do |produto| %>
-        <li class="item-produto">
+        <% item = current_user.carrinho.item_carrinhos.find_by(produto_id: produto.id) %>
+        <li>
           <%= render produto %>
-          <%= button_to 'Remover do Carrinho', remover_produto_carrinho_path(produto.id), method: :delete, class: "btn-remover-produto" %>
+          <%= button_to 'Remover do Carrinho', remover_produto_carrinho_path(item.id), method: :delete %> 
         </li>
       <% end %>
     </ul>
@@ -16,9 +17,3 @@
     <p class="carrinho-vazio">Seu carrinho está vazio.</p>
   <% end %>
 </div>
-
-<%
-=begin%>
- <%= paginate @carinhos %>
-<%
-=end%>

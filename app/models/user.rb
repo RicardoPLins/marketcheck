@@ -6,7 +6,7 @@ class User < ApplicationRecord
   before_create :assign_role
 
   private
-  def create__empty_cart
+  def create_empty_cart
     Carrinho.create(user_id: self.id)
   end
 
