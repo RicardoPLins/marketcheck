@@ -1,0 +1,57 @@
+/* Container que organiza os produtos em uma grid de 3 colunas */
+.container-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.teste-fles-list{
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.teste-fles-list-2{
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+
+}
+
+/* Estilo para cada cartão de produto */
+.produto-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: left;
+}
+
+/* Estilo para imagens */
+.produto-card img {
+  display: block;
+  margin: 0 auto 10px;
+}
+
+/* Estilo para os textos dentro do cartão */
+.produto-card p {
+  margin-bottom: 10px;
+}
+
+/* Botão no fim do card centralizado */
+.btn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}

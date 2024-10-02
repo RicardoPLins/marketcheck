@@ -1,19 +1,18 @@
-<div id="<%= dom_id produto %>">
-  <p>
+<div class="teste-color" id="<%= dom_id produto %>">
+  <p class="nome-produto">
     <strong>Nome:</strong>
     <%= produto.nome_produto %>
   </p>
 
-  <p>
+  <p class="categoria-produto">
     <strong>Categoria:</strong>
     <%= produto.categoria %>
   </p>
 
-  <p>
+  <p class="valor-produto">
     <strong>Preco:</strong>
     <%= produto.preco %>
   </p>
-
 
   <p>
     <strong>Imagem:</strong>
@@ -27,10 +26,15 @@
   <p>Supermercado: <%= produto_preco.supermercado.nome_mercado %></p>
   <p>Localização: <%= produto_preco.supermercado.localizacao %></p>
   <p>Preço: <%= produto_preco.preco %></p>
+
   <% end %>
-  
+
+ <%
+=begin%>
  <p>
-  <strong>Localização no mercado:</strong> 
+  <strong>Localização no mercado:</strong>
   <%= produto.indicacao_no_mercado %>
   </p>
+<%
+=end%>
 </div>

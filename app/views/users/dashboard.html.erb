@@ -1,8 +1,9 @@
-<h1>Bem-vindo, <%= current_user.email %>!</h1>
+<div>
+  <h1 class="">Bem-vindo, <%= current_user.email %>!</h1>
+  <p>Use os links abaixo para acessar a listagem de produtos e supermercados:</p>
 
-<p>Use os links abaixo para acessar a listagem de produtos e supermercados:</p>
-
-<ul>
-  <li><%= link_to 'Ver Produtos', produtos_path %></li>
-  <li><%= link_to 'Ver Supermercados', supermercados_path %></li>
-</ul>
+  <div class="button-acessar-prod-e-super">
+    <button class="btn-ir-para-tela"><a href="/produtos"> Ver Produto </a></button>
+    <button class="btn-ir-para-tela"><a href="/supermercado"> Ver Supermercado </a></button>
+  </div>
+</div>

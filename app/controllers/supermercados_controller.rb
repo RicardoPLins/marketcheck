@@ -4,7 +4,10 @@ class SupermercadosController < ApplicationController
 
   # GET /supermercados or /supermercados.json
   def index
-    @supermercados = Supermercado.all
+    # @supermercados = Supermercado.all
+    @supermercados = Supermercado.all.page(
+      params[:page]
+    ).per(2)
   end
 
   # GET /supermercados/1 or /supermercados/1.json

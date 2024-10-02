@@ -1,11 +1,13 @@
-<h1>Lista de Favoritos Compartilhada</h1>
+<h1 class="titulo-lista-compartilhada">Lista de Favoritos Compartilhada</h1>
 
-<% if @favoritos.any? %>
-  <% @favoritos.each do |produto| %>
-    <div>
-      <%= render produto %>
-    </div>
+<div class="lista-compartilhada">
+  <% if @favoritos.any? %>
+    <% @favoritos.each do |produto| %>
+      <div class="produto-compartilhado">
+        <%= render produto %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="mensagem-vazia">Nenhum produto na lista de favoritos.</p>
   <% end %>
-<% else %>
-  <p>Nenhum produto na lista de favoritos.</p>
-<% end %>
+</div>
