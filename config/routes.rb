@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  devise_for :users, controllers: {
+  registrations: 'users/registrations'
+  }
   resources :supermercados
   
   resources :produtos do
@@ -21,13 +23,16 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Define a rota do caminho raiz ("/")
-  root to: "home#index"
+  root to: "produtos#index"
 
   #carrinhos de compra
   resources :carrinhos, only: [:show] do
     delete :remover_todos, on: :collection
+    get 'organizar_caminho', on: :collection
   end
   post 'produtos/:id/adicionar_ao_carrinho', to: 'produtos#adicionar_ao_carrinho', as: 'adicionar_ao_carrinho'
   delete 'carrinho/remover_produto/:id', to: 'carrinhos#remover_produto', as: 'remover_produto_carrinho'
+
+  post 'favoritos/adicionar_todos_ao_carrinho', to: 'favoritos#adicionar_todos_ao_carrinho', as: 'adicionar_todos_ao_carrinho'
 
 end

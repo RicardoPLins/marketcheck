@@ -82,4 +82,5 @@ gem 'bunny'
 gem 'cancancan'
 
 gem 'devise', '~> 4.9'
+
 gem 'jwt'
