@@ -1,7 +1,9 @@
-<%
-=begin%>
- <div id="<%= dom_id @produto %>">
-  <p>
+<div class="teste-color" id="<%= dom_id @produto %>">
+  <div class="">
+    <%= link_to "Back to produtos", produtos_path, class: 'btn btn-primary' %>
+    <%= link_to "Favoritos", favoritos_path, class: 'btn btn-primary ' %>
+  </div>
+  <p class="nome-produto">
     <strong>Nome:</strong>
     <%= @produto.nome_produto %>
   </p>
@@ -31,7 +33,6 @@
     <p>Localização: <%= produto_preco.supermercado.localizacao %></p>
     <p>Preço: <%= number_to_currency(produto_preco.preco) %></p>
   <% end %>
-  <p><strong>Localização no Mercado:</strong> <%= @produto.indicacao_no_mercado %></p>
 
 </div>
 
@@ -43,10 +44,7 @@
       <%= link_to "Edit this produto", edit_produto_path(@produto) %>
   <% end %>
 
-  <%= link_to "Back to produtos", produtos_path %>
-  <%= link_to "Favoritos", favoritos_path %>
-  <%= button_to "Adicionar aos Favoritos", add_to_favoritos_favorito_path(@produto.id), method: :post %>
-  <%= button_to 'Adicionar ao Carrinho', adicionar_ao_carrinho_path(@produto), method: :post %>
+
+  <%= button_to "Adicionar aos Favoritos", add_to_favoritos_favorito_path(@produto.id), method: :post, class: 'btn btn-primary m-1' %>
+  <%= button_to 'Adicionar ao Carrinho', adicionar_ao_carrinho_path(@produto), method: :post, class: 'btn btn-primary m-1' %>
 </div>
-<%
-=end%>
