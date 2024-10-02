@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery unless: -> { Rails.env.development? }
+  protect_from_forgery unless: -> { Rails.env.development? || request.format.json? }
 
-  # Permitir a ação de login
+  # Autenticação de usuário
   before_action :authenticate_user!
-  
+
+  # Tratamento de exceções de acesso negado
   rescue_from CanCan::AccessDenied do |exception|
     render json: { error: exception.message }, status: :forbidden
   end

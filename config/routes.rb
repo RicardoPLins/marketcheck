@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # Rotas do Devise para usuários
-  devise_for :users, controllers: { 
+  devise_for :users, controllers: {
+  registrations: 'users/registrations'
+  }, controllers: { 
     sessions: 'users/sessions', 
     registrations: 'users/registrations'  # Adicionando o controlador de registros
   }

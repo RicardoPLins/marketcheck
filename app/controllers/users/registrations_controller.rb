@@ -26,4 +26,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render json: { user: resource }, status: :created
     end
   end
-  
+  class Users::RegistrationsController < Devise::RegistrationsController
+  private
+
+  def sign_up_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :admin)
+  end
+end
