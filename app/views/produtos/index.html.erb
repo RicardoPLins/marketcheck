@@ -31,4 +31,6 @@
 
   <%= paginate @produtos %>
 
-  <%= link_to "New produto", new_produto_path %>
+  <% if can? :create, Produto %>
+    <%= link_to 'Cadastrar novo produto', new_produto_path %>
+  <% end %>

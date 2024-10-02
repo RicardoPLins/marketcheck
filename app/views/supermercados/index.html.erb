@@ -10,7 +10,8 @@
     </p>
   <% end %>
 </div>
-
+<% if can? :edit, Supermercado %>
 <%= paginate @supermercados %>
 
-<%= link_to "New supermercado", new_supermercado_path %>
+  <%= link_to "New supermercado", new_supermercado_path %>
+<% end %>
