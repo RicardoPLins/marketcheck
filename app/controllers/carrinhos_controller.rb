@@ -1,5 +1,5 @@
 class CarrinhosController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authorize
 
   def show
     @carrinho = current_user.carrinho || current_user.create_carrinho

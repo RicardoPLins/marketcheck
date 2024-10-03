@@ -1,13 +1,15 @@
 class User < ApplicationRecord
-  require 'jwt'
+  has_secure_password
+
+  # require 'jwt'
   has_one :carrinho
   after_create :create_empty_cart
   enum role: { user: 0, admin: 1 }
 
   # Método para gerar JWT
-  def generate_jwt
-    JWT.encode({ id: id, exp: 24.hours.from_now.to_i }, Rails.application.secrets.secret_key_base)
-  end
+  # def generate_jwt
+  #   JWT.encode({ id: id, exp: 24.hours.from_now.to_i }, Rails.application.secrets.secret_key_base)
+  # end
 
   private 
 
@@ -18,6 +20,6 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  # devise :database_authenticatable, :registerable,
+  #        :recoverable, :rememberable, :validatable
 end

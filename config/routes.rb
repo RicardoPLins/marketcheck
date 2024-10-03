@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-  registrations: 'users/registrations'
-  }
+  # devise_for :users
   resources :supermercados
+
+  resources :users, ony: [:show, :edit, :update, :create]
+  post 'users/login', to: 'users#login'
+
   
   resources :produtos do
     post 'add_favoritos', on: :member, as: 'add_favoritos' # Rota para adicionar aos favoritos
