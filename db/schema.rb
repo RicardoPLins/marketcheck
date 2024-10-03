@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_02_143512) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_03_130345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_02_143512) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_carrinhos_on_user_id"
+  end
+
+  create_table "favoritos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "produto_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["produto_id"], name: "index_favoritos_on_produto_id"
+    t.index ["user_id"], name: "index_favoritos_on_user_id"
   end
 
   create_table "item_carrinhos", force: :cascade do |t|
@@ -73,6 +82,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_02_143512) do
   end
 
   add_foreign_key "carrinhos", "users"
+  add_foreign_key "favoritos", "produtos"
+  add_foreign_key "favoritos", "users"
   add_foreign_key "item_carrinhos", "carrinhos"
   add_foreign_key "item_carrinhos", "produtos"
   add_foreign_key "produtos_precos", "produtos"

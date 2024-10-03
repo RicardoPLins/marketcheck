@@ -3,12 +3,23 @@ class CarrinhosController < ApplicationController
 
   def show
     @carrinho = current_user.carrinho || current_user.create_carrinho
-    @produtos = @carrinho.produtos
+    @item_carrinhos = @carrinho.item_carrinhos.includes(:produto)
 
-    # Retornando JSON com os detalhes do carrinho e produtos
+    # Inclui o ID de item_carrinho e os detalhes do produto na resposta
     render json: {
       carrinho: @carrinho,
-      produtos: @produtos
+      itens: @item_carrinhos.map { |item| 
+        {
+          id: item.id,                # ID do item_carrinho
+          produto_id: item.produto.id, # ID do produto
+          image_url: item.produto.image_url, # URL da imagem do produto
+          nome_produto: item.produto.nome_produto,     # Nome do produto
+          categoria: item.produto.categoria,   # Categoria do produto
+          quantidade: item.quantidade,  # Quantidade do produto
+          preco: item.produto.preco,     # Preço do produto
+          indicacao_no_mercado: item.produto.indicacao_no_mercado # Indicação do produto no mercado
+        } 
+      }
     }, status: :ok
   end
 
@@ -29,17 +40,33 @@ class CarrinhosController < ApplicationController
 
   def organizar_caminho
     @carrinho = current_user.carrinho || current_user.create_carrinho
-
-    # A junção deve incluir a tabela que tem a relação com o supermercado
-    @produtos = @carrinho.produtos
-                          .joins(:produtos_precos) # Substitua por 'produtos_precos' se necessário
-                          .joins('JOIN supermercados ON produtos_precos.supermercado_id = supermercados.id')
-                          .order('supermercados.nome_mercado ASC, produtos.indicacao_no_mercado ASC')
-
-    # Retornando JSON com os produtos organizados
+  
+    # A consulta SQL deve unir as tabelas corretas
+    @produtos = ActiveRecord::Base.connection.execute <<-SQL
+      WITH produtos_ordenados AS (
+        SELECT 
+          p.*, 
+          (REGEXP_MATCHES(p.indicacao_no_mercado, '([0-9]+)'))[1]::INTEGER AS fileira_numero
+        FROM produtos p
+        JOIN item_carrinhos ic ON p.id = ic.produto_id
+        WHERE ic.carrinho_id = #{@carrinho.id}
+      )
+      SELECT 
+        po.*
+      FROM produtos_ordenados po
+      JOIN produtos_precos pp ON po.id = pp.produto_id
+      JOIN supermercados s ON pp.supermercado_id = s.id
+      ORDER BY s.nome_mercado ASC, fileira_numero ASC;
+    SQL
+  
     render json: {
       carrinho: @carrinho,
-      produtos: @produtos
+      itens: @produtos.as_json(include: {
+        produtos_precos: {
+          include: :supermercado
+        }
+      })
     }, status: :ok
   end
+  
 end

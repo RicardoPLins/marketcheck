@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   # require 'jwt'
   has_one :carrinho
+  has_many :favoritos
+  has_many :produtos_favoritos, through: :favoritos, source: :produto
   after_create :create_empty_cart
   enum role: { user: 0, admin: 1 }
 
