@@ -1,49 +1,44 @@
 class FavoritosController < ApplicationController
-  # Adiciona um produto à lista de favoritos
   before_action :authorize
 
+  # Adiciona um produto à lista de favoritos do usuário
   def add
-    # Obtém a lista de favoritos do cache ou inicializa como um array vazio
-    favoritos = Rails.cache.fetch('favoritos', expires_in: 1.hour ) { [] }
-
-    # Converte o ID do produto para inteiro
     product_id = params[:id].to_i
+    produto = Produto.find(product_id)
 
-    # Adiciona o ID do produto aos favoritos, se ainda não estiver na lista
-    unless favoritos.include?(product_id)
-      favoritos << product_id
-      Rails.cache.write('favoritos', favoritos, expires_in: 1.hour) # O tempo de expiração já está definido na configuração do cache
-      # Publicar mensagem no RabbitMQ
-      RabbitmqService.publish('favoritos_queue', 'Um novo produto foi adicionado na lista de favoritos.')
-      
-      # Renderiza a resposta JSON se necessário
-      render json: { status: 'success', message: 'Produto adicionado aos favoritos' }, status: :ok
-    else
+    if current_user.produtos_favoritos.exists?(produto.id)
       render json: { status: 'error', message: 'Produto já está na lista de favoritos' }, status: :unprocessable_entity
+    else
+      current_user.produtos_favoritos << produto
+
+      # Publicar mensagem no RabbitMQ
+      RabbitmqService.publish('favoritos_queue', "Usuário #{current_user.id} adicionou o produto #{produto.id} aos favoritos.")
+
+      render json: { status: 'success', message: 'Produto adicionado aos favoritos' }, status: :ok
     end
   end
 
-  # Lista os produtos favoritos
+  # Lista os produtos favoritos do usuário
   def index
-    @favoritos_ids = Rails.cache.fetch('favoritos') { [] }
-    @favoritos = Produto.where(id: @favoritos_ids)
+    @favoritos = current_user.produtos_favoritos
 
     respond_to do |format|
-      format.json { render json: @favoritos }  # Retorna a lista de favoritos como JSON
-      format.html # Renderiza a visualização HTML caso seja necessário
+      format.json { render json: @favoritos }
+      format.html
     end
   end
 
   # Remove um produto da lista de favoritos
   def remove
-    favoritos = Rails.cache.read('favoritos') || []
     product_id = params[:id].to_i
+    produto = current_user.produtos_favoritos.find_by(id: product_id)
 
-    if favoritos.delete(product_id)
-      Rails.cache.write('favoritos', favoritos, expires_in: 1.hour)
+    if produto
+      # Remove o produto dos favoritos do usuário
+      current_user.produtos_favoritos.delete(produto)
 
       # Publicar mensagem no RabbitMQ
-      RabbitmqService.publish('favoritos_queue', 'Um produto foi removido da lista de favoritos.')
+      RabbitmqService.publish('favoritos_queue', "Usuário #{current_user.id} removeu o produto #{produto.id} dos favoritos.")
 
       render json: { status: 'success', message: 'Produto removido dos favoritos' }, status: :ok
     else
@@ -51,12 +46,13 @@ class FavoritosController < ApplicationController
     end
   end
 
-  # Compartilha a lista de favoritos
+  # Compartilha a lista de favoritos do usuário
   def share
-    favoritos = Rails.cache.read('favoritos') || []
+    favoritos = current_user.produtos_favoritos
+
     if favoritos.present?
       token = SecureRandom.hex(10)
-      Rails.cache.write("favoritos_#{token}", favoritos, expires_in: 1.hour)
+      Rails.cache.write("favoritos_#{token}", favoritos.pluck(:id), expires_in: 1.hour)
 
       redirect_to shared_favoritos_path(token: token), notice: "Lista de favoritos compartilhada com sucesso!"
     else
@@ -67,28 +63,26 @@ class FavoritosController < ApplicationController
   # Mostra a lista de favoritos compartilhados
   def show_shared
     @token = params[:token]
-    @favoritos = Rails.cache.read("favoritos_#{@token}") || []
+    favoritos_ids = Rails.cache.read("favoritos_#{@token}") || []
+    @favoritos = Produto.where(id: favoritos_ids)
 
     if @favoritos.empty?
       redirect_to favoritos_path, alert: "Lista de favoritos não encontrada ou está vazia."
     end
   end  
-  #add tds os favoritos no carrinho
+
+  # Adiciona todos os favoritos ao carrinho do usuário
   def adicionar_todos_ao_carrinho
     if user_signed_in?
-      # Obtém o carrinho do usuário ou cria um novo se não existir
       carrinho = current_user.carrinho || current_user.create_carrinho
-  
-      # Verifica se a lista de favoritos está vazia
-      favoritos = Rails.cache.fetch('favoritos', expires_in: 1.hour) { [] }
+
+      favoritos = current_user.produtos_favoritos
       if favoritos.empty?
         redirect_to favoritos_path, alert: 'Sua lista de favoritos está vazia!'
         return
       end
-  
-      # Adiciona cada produto da lista de favoritos ao carrinho
-      favoritos.each do |produto_id|
-        produto = Produto.find(produto_id)
+
+      favoritos.each do |produto|
         item = carrinho.item_carrinhos.find_or_initialize_by(produto: produto)
         
         # Inicializa a quantidade se for nil
@@ -96,7 +90,10 @@ class FavoritosController < ApplicationController
         item.quantidade += 1   # Agora pode incrementar
         item.save
       end
-  
+
+      # Publicar mensagem no RabbitMQ após adicionar todos os favoritos ao carrinho
+      RabbitmqService.publish('favoritos_queue', "Usuário #{current_user.id} adicionou todos os produtos favoritos ao carrinho.")
+
       redirect_to carrinho_path(current_user.id), notice: 'Todos os produtos foram adicionados ao carrinho!'
     else
       redirect_to new_user_session_path, alert: 'Você precisa estar logado para adicionar produtos ao carrinho.'
