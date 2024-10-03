@@ -1,8 +1,10 @@
 class ProdutosController < ApplicationController
-  load_and_authorize_resource
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  # load_and_authorize_resource
+  # skip_before_action :authenticate_user!, only: [:index, :show]
+  # before_action :authorize
   before_action :set_produto, only: %i[show edit update destroy]
 
+  # GET /produtos or /produtos.json
   def index
     @produtos = Produto.all
     if params[:search].present?
@@ -14,20 +16,22 @@ class ProdutosController < ApplicationController
     end
   end
 
+  # GET /produtos/1 or /produtos/1.json
   def show
     @outros_produtos = Produto.where(nome: @produto.nome_produto).where.not(id: @produto.id)
   end
 
+  # GET /produtos/new
   def new
-    authorize! :create, @produto
     @produto = Produto.new
   end
 
+  # GET /produtos/1/edit
   def edit
-    authorize! :create, @produto
     @produto = Produto.find(params[:id])
   end
 
+  # POST /produtos or /produtos.json
   def create
     @produto = Produto.new(produto_params)
 
@@ -70,39 +74,42 @@ class ProdutosController < ApplicationController
     end
   end
 
-  def produtos_menor
-    subquery = Produto.select('nome, MIN(preco) AS min_preco')
-                      .group('nome')
-    @produtos_menor = Produto.joins("INNER JOIN (#{subquery.to_sql}) AS sub ON produtos.nome = sub.nome AND produtos.preco = sub.min_preco")
+  # GET /produtos/produtos_menor
+def produtos_menor
+  # Obtenha os produtos com o menor preço por nome usando uma subconsulta
+  subquery = Produto.select('nome, MIN(preco) AS min_preco')
+                    .group('nome')
+          
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @produtos_menor }
-    end
+  @produtos_menor = Produto.joins("INNER JOIN (#{subquery.to_sql}) AS sub ON produtos.nome = sub.nome AND produtos.preco = sub.min_preco")
+
+  publish_message("Produto adicionado ao carrinho: #{@produto.nome_produto}")
+  respond_to do |format|
+    format.html
+    format.json { render json: @produtos_menor }
   end
+end
+def adicionar_ao_carrinho
+  @produto = Produto.find(params[:id])
 
-  def adicionar_ao_carrinho
-    @produto = Produto.find(params[:id])
+  if authorized_user  # Verifica se o usuário está autenticado
+    Rails.logger.debug "Usuário atual: #{current_user.id}"
+    carrinho = current_user.carrinho || current_user.create_carrinho
+    Rails.logger.debug "Carrinho ID: #{carrinho.id}"
 
-    authorize! :add_to_carrinho, @produto
+    # Encontre ou inicialize o item no carrinho
+    item = carrinho.item_carrinhos.find_or_initialize_by(produto: @produto)
 
-    if user_signed_in?
-      Rails.logger.debug "Usuário atual: #{current_user.id}"
-      carrinho = current_user.carrinho || current_user.create_carrinho
-      Rails.logger.debug "Carrinho ID: #{carrinho.id}"
+    # Inicialize a quantidade se for nil
+    item.quantidade ||= 0  # Se for nil, define como 0
+    item.quantidade += 1   # Agora pode incrementar
+    item.save
 
-      item = carrinho.item_carrinhos.find_or_initialize_by(produto: @produto)
-      item.quantidade ||= 0  # Se for nil, define como 0
-      item.quantidade += 1   # Agora pode incrementar
-      item.save
-
-      publish_message("Produto adicionado ao carrinho: #{@produto.nome_produto}")
-
-      redirect_to carrinho_path, notice: 'Produto adicionado ao carrinho!'
-    else
-      redirect_to new_user_session_path, alert: 'Você precisa estar logado para adicionar produtos ao carrinho.'
-    end
+    redirect_to carrinho_path, notice: 'Produto adicionado ao carrinho!'
+  else
+    redirect_to new_user_session_path, alert: 'Você precisa estar logado para adicionar produtos ao carrinho.'
   end
+end
 
   private
 

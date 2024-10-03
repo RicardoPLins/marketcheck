@@ -2,15 +2,12 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.role == "admin"
-      can :manage, :all  # Administradores podem fazer qualquer coisa
+    user ||= User.new # usuário não autenticado
+
+    if user.admin?
+      can :manage, :all # Administradores podem gerenciar tudo
     else
-      can :manage, Carrinho
-      can :manage, Produto
-      cannot :create, Produto # Exclui a permissão de criar produtos
-      cannot :update, Produto # Exclui a permissão de editar produtos
-      cannot :destroy, Produto # Exclui a permissão de excluir produtos
-      can :read, Supermercado  # Usuários comuns podem apenas ler a lista de supermercados
+      can :read, Produto # Usuários normais podem apenas ler produtos
     end
   end
 end

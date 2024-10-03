@@ -1,11 +1,10 @@
 class FavoritosController < ApplicationController
   # Adiciona um produto à lista de favoritos
-  skip_before_action :authenticate_user!, only: [:index, :add, :remove]
-  skip_before_action :verify_authenticity_token, only: [:add , :remove]
+  before_action :authorize
 
   def add
     # Obtém a lista de favoritos do cache ou inicializa como um array vazio
-    favoritos = Rails.cache.fetch('favoritos', expires_in: 1.hour) { [] }
+    favoritos = Rails.cache.fetch('favoritos', expires_in: 1.hour ) { [] }
 
     # Converte o ID do produto para inteiro
     product_id = params[:id].to_i
@@ -14,10 +13,9 @@ class FavoritosController < ApplicationController
     unless favoritos.include?(product_id)
       favoritos << product_id
       Rails.cache.write('favoritos', favoritos, expires_in: 1.hour) # O tempo de expiração já está definido na configuração do cache
-
       # Publicar mensagem no RabbitMQ
       RabbitmqService.publish('favoritos_queue', 'Um novo produto foi adicionado na lista de favoritos.')
-
+      
       # Renderiza a resposta JSON se necessário
       render json: { status: 'success', message: 'Produto adicionado aos favoritos' }, status: :ok
     else
@@ -75,8 +73,7 @@ class FavoritosController < ApplicationController
       redirect_to favoritos_path, alert: "Lista de favoritos não encontrada ou está vazia."
     end
   end  
-
-  # Adiciona todos os favoritos ao carrinho
+  #add tds os favoritos no carrinho
   def adicionar_todos_ao_carrinho
     if user_signed_in?
       # Obtém o carrinho do usuário ou cria um novo se não existir

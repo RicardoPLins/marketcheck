@@ -13,12 +13,10 @@
   <body>
     <header>
     <nav>
-      <% if user_signed_in? %>
-        <span>Bem-vindo, <%= current_user.email %></span>
-        <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'Login', new_user_session_path %>
-      <% end %>
+      
+        <span>Bem-vindo ></span>
+        
+      
     </nav>
   </header>
     <%= yield %>

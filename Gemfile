@@ -83,4 +83,6 @@ gem 'cancancan'
 
 gem 'devise', '~> 4.9'
 
-gem 'sassc-rails'
+gem 'jwt'
+
+gem 'bcrypt', '~> 3.1.7'

@@ -13,14 +13,11 @@ class SupermercadosController < ApplicationController
 
   # GET /supermercados/new
   def new
-    authorize! :create, @produto
     @supermercado = Supermercado.new
   end
 
   # GET /supermercados/1/edit
   def edit
-    authorize! :create, @produto
-    @supermercado = Supermercado.find(params[:id])
   end
 
   # POST /supermercados or /supermercados.json
