@@ -5,7 +5,7 @@ class FavoritosController < ApplicationController
 
   def add
     # Obtém a lista de favoritos do cache ou inicializa como um array vazio
-    favoritos = Rails.cache.fetch('favoritos', expires_in: 1.hour ) { [] }
+    favoritos = Rails.cache.fetch('favoritos', expires_in: 1.hour) { [] }
 
     # Converte o ID do produto para inteiro
     product_id = params[:id].to_i
@@ -14,23 +14,17 @@ class FavoritosController < ApplicationController
     unless favoritos.include?(product_id)
       favoritos << product_id
       Rails.cache.write('favoritos', favoritos, expires_in: 1.hour) # O tempo de expiração já está definido na configuração do cache
-      flash[:notice] = 'Produto adicionado aos favoritos com sucesso.'
-      
-      # Transmitir a mensagem para o canal usando ActionCable
-      ActionCable.server.broadcast('favoritos_channel', { message: "A lista de favoritos foi atualizada. Um produto foi adicionado" })
 
       # Publicar mensagem no RabbitMQ
       RabbitmqService.publish('favoritos_queue', 'Um novo produto foi adicionado na lista de favoritos.')
-      
+
       # Renderiza a resposta JSON se necessário
       render json: { status: 'success', message: 'Produto adicionado aos favoritos' }, status: :ok
     else
-      flash[:alert] = 'Produto já está na lista de favoritos.'
       render json: { status: 'error', message: 'Produto já está na lista de favoritos' }, status: :unprocessable_entity
     end
   end
 
-  # Lista os produtos favoritos
   # Lista os produtos favoritos
   def index
     @favoritos_ids = Rails.cache.fetch('favoritos') { [] }
@@ -49,17 +43,12 @@ class FavoritosController < ApplicationController
 
     if favoritos.delete(product_id)
       Rails.cache.write('favoritos', favoritos, expires_in: 1.hour)
-      flash[:notice] = 'Produto removido dos favoritos com sucesso.'
-      
-      # Transmitir a mensagem para o canal usando ActionCable
-      ActionCable.server.broadcast('favoritos_channel', { message: "A lista de favoritos foi atualizada. Um produto foi removido" })
 
       # Publicar mensagem no RabbitMQ
       RabbitmqService.publish('favoritos_queue', 'Um produto foi removido da lista de favoritos.')
 
       render json: { status: 'success', message: 'Produto removido dos favoritos' }, status: :ok
     else
-      flash[:alert] = 'Produto não encontrado na lista de favoritos.'
       render json: { status: 'error', message: 'Produto não encontrado na lista de favoritos' }, status: :unprocessable_entity
     end
   end
@@ -86,7 +75,8 @@ class FavoritosController < ApplicationController
       redirect_to favoritos_path, alert: "Lista de favoritos não encontrada ou está vazia."
     end
   end  
-  #add tds os favoritos no carrinho
+
+  # Adiciona todos os favoritos ao carrinho
   def adicionar_todos_ao_carrinho
     if user_signed_in?
       # Obtém o carrinho do usuário ou cria um novo se não existir

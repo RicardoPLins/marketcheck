@@ -5,9 +5,12 @@
 <% if @produtos.any? %>
   <ul>
     <% @produtos.each do |produto| %>
+      <% item = @carrinho.item_carrinhos.find_by(produto: produto) %>
       <li>
         <%= render produto %>
-        <%= button_to 'Remover do Carrinho', remover_produto_carrinho_path(produto.id), method: :delete %>
+        <% if item.present? %>
+          <%= button_to 'Remover do Carrinho', remover_produto_carrinho_path(item.id), method: :delete %>
+        <% end %>
       </li>
     <% end %>
   </ul>
