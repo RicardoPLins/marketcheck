@@ -4,18 +4,27 @@ class CarrinhosController < ApplicationController
   def show
     @carrinho = current_user.carrinho || current_user.create_carrinho
     @produtos = @carrinho.produtos
+
+    # Retornando JSON com os detalhes do carrinho e produtos
+    render json: {
+      carrinho: @carrinho,
+      produtos: @produtos
+    }, status: :ok
   end
-  
 
   def remover_todos
     current_user.carrinho.item_carrinhos.destroy_all
-    redirect_to carrinho_path(current_user.id), notice: 'Todos os produtos foram removidos!'
+    
+    # Retornando JSON de sucesso
+    render json: { message: 'Todos os produtos foram removidos!' }, status: :ok
   end
 
   def remover_produto
     item = current_user.carrinho.item_carrinhos.find(params[:id])
     item.destroy
-    redirect_to carrinho_path(current_user.id), notice: 'Produto removido do carrinho!'
+    
+    # Retornando JSON de sucesso
+    render json: { message: 'Produto removido do carrinho!' }, status: :ok
   end
 
   def organizar_caminho
@@ -27,6 +36,10 @@ class CarrinhosController < ApplicationController
                           .joins('JOIN supermercados ON produtos_precos.supermercado_id = supermercados.id')
                           .order('supermercados.nome_mercado ASC, produtos.indicacao_no_mercado ASC')
 
-    render :show
+    # Retornando JSON com os produtos organizados
+    render json: {
+      carrinho: @carrinho,
+      produtos: @produtos
+    }, status: :ok
   end
 end
