@@ -73,8 +73,7 @@ class FavoritosController < ApplicationController
 
   # Adiciona todos os favoritos ao carrinho do usuário
   def adicionar_todos_ao_carrinho
-    if user_signed_in?
-      carrinho = current_user.carrinho || current_user.create_carrinho
+    carrinho = current_user.carrinho || current_user.create_carrinho
 
       favoritos = current_user.produtos_favoritos
       if favoritos.empty?
@@ -94,9 +93,6 @@ class FavoritosController < ApplicationController
       # Publicar mensagem no RabbitMQ após adicionar todos os favoritos ao carrinho
       RabbitmqService.publish('favoritos_queue', "Usuário #{current_user.id} adicionou todos os produtos favoritos ao carrinho.")
 
-      redirect_to carrinho_path(current_user.id), notice: 'Todos os produtos foram adicionados ao carrinho!'
-    else
-      redirect_to new_user_session_path, alert: 'Você precisa estar logado para adicionar produtos ao carrinho.'
-    end
+      render json: { status: 'success', message: 'Favoritos adicionados ao carrinho' }, status: :ok
   end
 end
